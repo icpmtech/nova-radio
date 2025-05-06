@@ -3,33 +3,40 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Simulador Rádio Amador</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: #000;
+      background: linear-gradient(to bottom, #0f0f0f, #1a1a1a);
       color: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 20px;
+      min-height: 100vh;
+    }
+    h1 {
+      color: #0ff;
+      margin-bottom: 10px;
     }
     .question-container {
       background: #111;
       border-radius: 20px;
-      box-shadow: 0 0 20px #0ff;
+      box-shadow: 0 0 20px #0ff5;
       padding: 20px;
       max-width: 500px;
       width: 100%;
-      margin-bottom: 20px;
+      margin: 10px 0;
+      animation: fadeIn 0.3s ease-in-out;
     }
     .option {
       background: #222;
-      border: 2px solid #0ff;
+      border: 2px solid #0ff2;
       border-radius: 12px;
-      padding: 10px;
-      margin: 10px 0;
+      padding: 12px;
+      margin: 8px 0;
       cursor: pointer;
       transition: all 0.2s ease;
     }
@@ -38,24 +45,92 @@
       color: #000;
     }
     .btn {
-      padding: 10px 20px;
+      padding: 12px 24px;
       background: #0ff;
       color: #000;
       border: none;
       border-radius: 12px;
       cursor: pointer;
       font-size: 16px;
-      margin-top: 20px;
+      margin: 10px 5px;
+      transition: background 0.3s ease;
     }
     .btn:hover {
       background: #00f5c0;
     }
+    .progress-bar {
+      width: 100%;
+      max-width: 500px;
+      background: #333;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+    .progress {
+      height: 12px;
+      background: #0ff;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    .score {
+      font-size: 18px;
+      margin-top: 10px;
+      color: #0ff;
+    }
+    .feedback {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #0ff;
+      min-height: 24px;
+    }
+    .history {
+      margin-top: 30px;
+      max-width: 500px;
+      width: 100%;
+      background: #111;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #0ff3;
+    }
+    .history h3 {
+      color: #0ff;
+      margin-bottom: 10px;
+    }
+    .history ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .history li {
+      padding: 6px 0;
+      border-bottom: 1px solid #333;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
+  <h1>Simulador Rádio Amador</h1>
+  <div class="progress-bar">
+    <div class="progress" id="progress"></div>
+  </div>
   <div class="question-container" id="question-box"></div>
-  <button class="btn" onclick="nextQuestion()">Próxima</button>  <script>
-    const questions = [
+  <div class="feedback" id="feedback"></div>
+  <button class="btn" onclick="nextQuestion()">Próxima</button>
+  <div class="score" id="score-box"></div>
+  <div>
+    <button class="btn" onclick="exportToExcel()">Exportar Questões</button>
+    <input type="file" class="btn" accept=".xlsx, .xls" onchange="importFromExcel(event)" />
+  </div>
+  <div class="history">
+    <h3>Histórico de Exames</h3>
+    <ul id="exam-history"></ul>
+    <button class="btn" onclick="clearHistory()">Limpar Histórico</button>
+    <button class="btn" onclick="exportHistoryToExcel()">Exportar Histórico</button>
+  </div>  <script>
+    let questions = [];
+    const defaultQuestions = [
       {
         question: "Qual é a função de uma antena num sistema de rádio?",
         options: [
@@ -75,25 +150,12 @@
           "Voltage High Frequency"
         ],
         answer: 0
-      },
-      {
-        question: "Qual destes modos é considerado analógico?",
-        options: ["DMR", "D-STAR", "FM", "FT8"],
-        answer: 2
-      },
-      {
-        question: "A licença de Classe 3 permite transmitir em que bandas?",
-        options: [
-          "Todas as bandas de HF, VHF e UHF",
-          "Apenas bandas HF",
-          "Bandas VHF e UHF",
-          "Apenas banda de 11 metros"
-        ],
-        answer: 2
       }
     ];
 
     let current = 0;
+    let score = 0;
+    let answered = false;
 
     function loadQuestion() {
       const q = questions[current];
@@ -102,22 +164,114 @@
         q.options.map((opt, i) => `
           <div class="option" onclick="checkAnswer(${i})">${opt}</div>
         `).join('');
+      updateProgress();
+      document.getElementById("score-box").textContent = `Pontuação: ${score} / ${questions.length}`;
+      document.getElementById("feedback").textContent = "";
+      answered = false;
     }
 
     function checkAnswer(i) {
+      if (answered) return;
       const q = questions[current];
+      answered = true;
+      const feedbackEl = document.getElementById("feedback");
       if (i === q.answer) {
-        alert("Resposta correta!");
+        feedbackEl.textContent = "Resposta correta!";
+        score++;
       } else {
-        alert("Errado. A resposta certa é: " + q.options[q.answer]);
+        feedbackEl.textContent = `Errado. A resposta certa é: ${q.options[q.answer]}`;
       }
+      document.getElementById("score-box").textContent = `Pontuação: ${score} / ${questions.length}`;
     }
 
     function nextQuestion() {
-      current = (current + 1) % questions.length;
+      current++;
+      if (current >= questions.length) {
+        document.getElementById("feedback").textContent = `Simulador completo! Pontuação final: ${score} / ${questions.length}`;
+        saveHistory();
+        current = 0;
+        score = 0;
+      }
       loadQuestion();
     }
 
-    loadQuestion();
+    function updateProgress() {
+      const percent = ((current + 1) / questions.length) * 100;
+      document.getElementById("progress").style.width = `${percent}%`;
+    }
+
+    function exportToExcel() {
+      const data = questions.map(q => ({
+        Pergunta: q.question,
+        Opcao1: q.options[0],
+        Opcao2: q.options[1],
+        Opcao3: q.options[2],
+        Opcao4: q.options[3],
+        Correta: q.options[q.answer]
+      }));
+      const ws = XLSX.utils.json_to_sheet(data);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Questões");
+      XLSX.writeFile(wb, "questoes_radioamador.xlsx");
+    }
+
+    function exportHistoryToExcel() {
+      const history = JSON.parse(localStorage.getItem("examHistory") || "[]");
+      const ws = XLSX.utils.json_to_sheet(history);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Histórico");
+      XLSX.writeFile(wb, "historico_exames.xlsx");
+    }
+
+    function importFromExcel(evt) {
+      const file = evt.target.files[0];
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: "array" });
+        const sheet = workbook.Sheets[workbook.SheetNames[0]];
+        const imported = XLSX.utils.sheet_to_json(sheet);
+        questions = imported.map(q => ({
+          question: q.Pergunta,
+          options: [q.Opcao1, q.Opcao2, q.Opcao3, q.Opcao4],
+          answer: [q.Opcao1, q.Opcao2, q.Opcao3, q.Opcao4].indexOf(q.Correta)
+        }));
+        current = 0;
+        score = 0;
+        loadQuestion();
+      };
+      reader.readAsArrayBuffer(file);
+    }
+
+    function saveHistory() {
+      const history = JSON.parse(localStorage.getItem("examHistory") || "[]");
+      history.push({
+        date: new Date().toLocaleString(),
+        score: `${score} / ${questions.length}`
+      });
+      localStorage.setItem("examHistory", JSON.stringify(history));
+      displayHistory();
+    }
+
+    function displayHistory() {
+      const history = JSON.parse(localStorage.getItem("examHistory") || "[]");
+      const ul = document.getElementById("exam-history");
+      ul.innerHTML = history.map(h => `<li>${h.date} - ${h.score}</li>`).join('');
+    }
+
+    function clearHistory() {
+      if (confirm("Tens a certeza que queres apagar o histórico de exames?")) {
+        localStorage.removeItem("examHistory");
+        displayHistory();
+      }
+    }
+
+    function init() {
+      questions = JSON.parse(localStorage.getItem("customQuestions")) || defaultQuestions;
+      displayHistory();
+      loadQuestion();
+    }
+
+    init();
   </script></body>
 </html>
