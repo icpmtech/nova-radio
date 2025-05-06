@@ -1,974 +1,185 @@
-<!DOCTYPE html>
-<html lang="pt">
+<!DOCTYPE html><html lang="pt">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Simulador Rádio Amador</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <style>
-    :root {
-      --primary: #3498db;
-      --success: #2ecc71;
-      --error: #e74c3c;
-      --dark: #1a1a2e;
-      --card: #16213e;
-      --light: #e6e6e6;
-      --accent: #00b4d8;
-    }
-    
-    * {
+    body {
+      background-color: #f8f9fa;
+      color: #000;
+      font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
-    
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: var(--dark);
-      color: var(--light);
-      line-height: 1.6;
-      padding: 20px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    h1, h2 {
+      color: #007bff;
     }
-    
-    .app-container {
-      max-width: 800px;
-      width: 100%;
-      margin: 0 auto;
+    .card-body {
+      background-color: #fff;
     }
-    
-    header {
-      text-align: center;
-      margin-bottom: 2rem;
-      padding: 1rem;
-      border-bottom: 2px solid var(--accent);
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
     }
-    
-    header h1 {
-      color: var(--accent);
-      margin-bottom: 0.5rem;
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
     }
-    
-    .stats-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--card);
-      padding: 1rem;
-      border-radius: 10px;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 4px 15px rgba(0, 180, 216, 0.2);
+    .btn-secondary {
+      background-color: #6c757d;
+      border-color: #6c757d;
+      color: #fff;
     }
-    
-    .progress-container {
-      flex: 1;
-      margin-right: 1rem;
-    }
-    
-    .progress-bar {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 20px;
-      overflow: hidden;
-      height: 12px;
-    }
-    
-    .progress {
-      height: 100%;
-      background: var(--primary);
-      width: 0%;
-      transition: width 0.5s ease;
-      border-radius: 20px;
-    }
-    
-    .score-display {
-      display: flex;
-      align-items: center;
-      font-weight: bold;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-    }
-    
-    .score-display .score-value {
-      color: var(--accent);
-      margin-left: 0.5rem;
-    }
-    
-    .question-container {
-      background: var(--card);
-      border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(0, 180, 216, 0.3);
-      padding: 2rem;
-      margin-bottom: 1.5rem;
-      transition: transform 0.3s ease;
-    }
-    
-    .question-container:hover {
-      transform: translateY(-5px);
-    }
-    
-    .question-text {
-      font-size: 1.25rem;
-      margin-bottom: 1.5rem;
-      color: var(--light);
-    }
-    
-    .options-container {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-    
-    @media (min-width: 640px) {
-      .options-container {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-    
-    .option {
-      background: rgba(255, 255, 255, 0.05);
-      border: 2px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 1rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-    }
-    
-    .option:hover {
-      background: rgba(0, 180, 216, 0.1);
-      border-color: var(--accent);
-      transform: translateY(-2px);
-    }
-    
-    .option.correct {
-      background: rgba(46, 204, 113, 0.2);
-      border-color: var(--success);
-    }
-    
-    .option.incorrect {
-      background: rgba(231, 76, 60, 0.2);
-      border-color: var(--error);
-    }
-    
-    .option-letter {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
-      margin-right: 10px;
-      font-weight: bold;
-    }
-    
-    .buttons-container {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 2rem;
-    }
-    
-    .btn {
-      padding: 0.75rem 1.5rem;
-      background: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: bold;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .btn:hover {
-      background: #2980b9;
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
-    }
-    
-    .btn:active {
-      transform: translateY(0);
-    }
-    
-    .btn-next {
-      background: var(--accent);
-    }
-    
-    .btn-next:hover {
-      background: #008cb7;
-      box-shadow: 0 5px 15px rgba(0, 180, 216, 0.4);
-    }
-    
-    .btn-disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-    
-    .btn-disabled:hover {
-      transform: none;
-      box-shadow: none;
-    }
-    
-    .tabs {
-      display: flex;
-      margin-bottom: 1rem;
-      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .tab {
-      padding: 0.75rem 1.5rem;
-      cursor: pointer;
-      opacity: 0.7;
-      transition: all 0.2s ease;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -2px;
-    }
-    
-    .tab:hover {
-      opacity: 1;
-    }
-    
-    .tab.active {
-      opacity: 1;
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-    
-    .tab-content {
-      display: none;
-    }
-    
-    .tab-content.active {
-      display: block;
-    }
-    
-    .history-container {
-      background: var(--card);
-      border-radius: 15px;
-      padding: 1.5rem;
-      max-height: 300px;
-      overflow-y: auto;
-    }
-    
-    .history-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.75rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .history-date {
-      color: var(--primary);
-    }
-    
-    .history-score {
-      font-weight: bold;
-      color: var(--accent);
-    }
-    
-    .file-input-container {
-      position: relative;
-      margin: 1rem 0;
-    }
-    
-    .file-input {
-      opacity: 0;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      cursor: pointer;
-    }
-    
-    .file-input-label {
-      display: block;
-      padding: 0.75rem 1.5rem;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    
-    .file-input-label:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-    
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-    }
-    
-    .modal-content {
-      background: var(--card);
-      border-radius: 15px;
-      padding: 2rem;
-      width: 90%;
-      max-width: 500px;
-      text-align: center;
-      animation: modalIn 0.3s ease;
-    }
-    
-    @keyframes modalIn {
-      from {
-        transform: translateY(-50px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-    
-    .modal-title {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: var(--primary);
-    }
-    
-    .modal-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-    
-    .confetti {
-      position: fixed;
-      width: 10px;
-      height: 10px;
-      background: #f00;
-      border-radius: 50%;
-      animation: confetti-fall 3s linear forwards;
-      z-index: 999;
-      pointer-events: none;
-    }
-    
-    @keyframes confetti-fall {
-      0% {
-        transform: translateY(-100px) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(calc(100vh + 100px)) rotate(720deg);
-        opacity: 0;
-      }
-    }
-    
-    .timer {
-      font-size: 1.25rem;
-      text-align: center;
-      margin-bottom: 1rem;
-      color: var(--accent);
-    }
-    
-    .notification {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      padding: 1rem;
-      background: var(--success);
-      color: white;
-      border-radius: 8px;
-      opacity: 0;
-      transform: translateX(50px);
-      transition: all 0.3s ease;
-      z-index: 1000;
-    }
-    
-    .notification.show {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    
-    .notification.error {
-      background: var(--error);
+    .btn-danger {
+      background-color: #dc3545;
+      border-color: #dc3545;
+      color: #fff;
     }
   </style>
 </head>
 <body>
-  <div class="app-container">
-    <header>
-      <h1>Simulador Rádio Amador</h1>
-      <p>Teste seus conhecimentos para o exame de radioamadorismo</p>
-    </header>
-    
-    <div class="stats-bar">
-      <div class="progress-container">
-        <div class="progress-bar">
-          <div class="progress" id="progress"></div>
-        </div>
-        <div style="display: flex; justify-content: space-between; margin-top: 5px;">
-          <small>Questão <span id="current-question">1</span> de <span id="total-questions">0</span></small>
-          <small id="timer">00:00</small>
-        </div>
+  <div class="container py-4">
+    <h1 class="text-center mb-4">Simulador Rádio Amador</h1>
+    <!-- Questão Atual -->
+    <section id="questao-atual" class="mb-4">
+      <h2 class="h4 mb-3">Questão Atual</h2>
+      <div id="question-box" class="card mb-3">
+        <div class="card-body"></div>
       </div>
-      <div class="score-display">
-        Pontuação: <span class="score-value" id="score-box">0/0</span>
+      <div id="feedback" class="mb-3 text-center"></div>
+      <div class="text-center">
+        <button id="next-btn" class="btn btn-primary" onclick="nextQuestion()" disabled>Próxima</button>
       </div>
-    </div>
-    
-    <div class="question-container" id="question-box"></div>
-    
-    <div class="buttons-container">
-      <button class="btn" id="btn-prev" onclick="prevQuestion()">← Anterior</button>
-      <button class="btn btn-next" id="btn-next" onclick="nextQuestion()">Próxima →</button>
-    </div>
-    
-    <div class="tabs">
-      <div class="tab active" data-tab="simulator">Simulador</div>
-      <div class="tab" data-tab="history">Histórico</div>
-      <div class="tab" data-tab="settings">Configurações</div>
-    </div>
-    
-    <div class="tab-content active" id="simulator-tab">
-      <p>Responda as questões acima para concluir o simulado.</p>
-    </div>
-    
-    <div class="tab-content" id="history-tab">
-      <h3>Histórico de Simulados</h3>
-      <div class="history-container" id="exam-history"></div>
-      <div style="display: flex; justify-content: space-between; margin-top: 1rem;">
-        <button class="btn" onclick="exportHistoryToExcel()">Exportar Histórico</button>
-        <button class="btn" onclick="clearHistory()">Limpar Histórico</button>
-      </div>
-    </div>
-    
-    <div class="tab-content" id="settings-tab">
-      <h3>Configurações</h3>
-      <div style="margin: 1.5rem 0;">
-        <h4>Importar/Exportar</h4>
-        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem;">
-          <button class="btn" onclick="exportToExcel()">Exportar Questões</button>
-          <div class="file-input-container">
-            <input type="file" id="import-file" class="file-input" accept=".xlsx, .xls" onchange="importFromExcel(event)" />
-            <label for="import-file" class="file-input-label">Importar Questões (Excel)</label>
-          </div>
-        </div>
-      </div>
-      
-      <div>
-        <h4>Opções do Simulado</h4>
-        <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;">
-          <div>
-            <input type="checkbox" id="shuffle-questions" checked />
-            <label for="shuffle-questions">Embaralhar questões</label>
-          </div>
-          <div>
-            <input type="checkbox" id="show-feedback" checked />
-            <label for="show-feedback">Mostrar feedback após resposta</label>
-          </div>
-          <div>
-            <input type="checkbox" id="time-limit" />
-            <label for="time-limit">Limite de tempo por questão</label>
-            <select id="time-limit-value" disabled>
-              <option value="30">30 segundos</option>
-              <option value="60">1 minuto</option>
-              <option value="120">2 minutos</option>
-              <option value="300">5 minutos</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
+    </section>
+    <!-- Importar/Exportar -->
+    <section id="import-export" class="mb-4">
+      <h2 class="h4 mb-3">Importar/Exportar</h2>
+      <button class="btn btn-secondary me-2" onclick="exportToExcel()">Exportar Questões</button>
+      <button class="btn btn-secondary" onclick="exportHistoryToExcel()">Exportar Histórico</button>
+    </section>
+    <!-- Histórico de Exames -->
+    <section id="historico" class="mb-4">
+      <h2 class="h4 mb-3">Histórico de Exames</h2>
+      <ul id="exam-history" class="list-group mb-3"></ul>
+      <button class="btn btn-danger" onclick="clearHistory()">Limpar Histórico</button>
+    </section>
   </div>
-  
-  <div class="modal" id="result-modal">
-    <div class="modal-content">
-      <h2 class="modal-title">Simulado Concluído!</h2>
-      <p>Você acertou <span id="final-score">0/0</span> questões.</p>
-      <div class="modal-buttons">
-        <button class="btn" onclick="restartQuiz()">Reiniciar</button>
-        <button class="btn btn-next" onclick="closeModal()">Fechar</button>
-      </div>
-    </div>
-  </div>
-  
-  <div class="notification" id="notification">Ação concluída com sucesso!</div>
-
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     let questions = [];
-    let defaultQuestions = [
-      {
-        question: "Qual é a função de uma antena num sistema de rádio?",
-        options: [
-          "Converter sinais de áudio em sinais digitais",
-          "Converter sinais elétricos em ondas de rádio e vice-versa",
-          "Reduzir a potência do transmissor",
-          "Amplificar o sinal de microfone"
-        ],
-        answer: 1
-      },
-      {
-        question: "O que significa a sigla VHF?",
-        options: [
-          "Very High Frequency",
-          "Variable High Flux",
-          "Very Harmonic Field",
-          "Voltage High Frequency"
-        ],
-        answer: 0
-      }
-    ];
-
     let current = 0;
     let score = 0;
-    let answered = false;
-    let history = [];
-    let timerInterval = null;
-    let secondsElapsed = 0;
-    let questionStartTime = 0;
-    let answeredQuestions = [];
+    let answered = false;// Carrega questões de questions.json
+async function loadJSON() {
+  try {
+    const response = await fetch('questions.json');
+    questions = await response.json();
+  } catch (e) {
+    console.error('Erro ao carregar questions.json', e);
+  }
+  initQuiz();
+}
 
-    function showNotification(message, isError = false) {
-      const notification = document.getElementById("notification");
-      notification.textContent = message;
-      if (isError) {
-        notification.classList.add("error");
-      } else {
-        notification.classList.remove("error");
-      }
-      notification.classList.add("show");
-      
-      setTimeout(() => {
-        notification.classList.remove("show");
-      }, 3000);
-    }
+function initQuiz() {
+  displayHistory();
+  loadQuestion();
+}
 
-    function createConfetti() {
-      const colors = ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff", "#00ffff"];
-      
-      for (let i = 0; i < 50; i++) {
-        const confetti = document.createElement("div");
-        confetti.className = "confetti";
-        confetti.style.left = Math.random() * window.innerWidth + "px";
-        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.width = Math.random() * 10 + 5 + "px";
-        confetti.style.height = confetti.style.width;
-        confetti.style.animationDuration = Math.random() * 3 + 2 + "s";
-        document.body.appendChild(confetti);
-        
-        setTimeout(() => {
-          confetti.remove();
-        }, 5000);
-      }
-    }
+function loadQuestion() {
+  const q = questions[current];
+  const box = document.getElementById('question-box').querySelector('.card-body');
+  box.innerHTML = `<h5>${q.question}</h5>` +
+    q.options.map((opt, i) =>
+      `<div class="option p-2 mb-2 border rounded" data-index="${i}">${opt}</div>`
+    ).join('');
+  document.querySelectorAll('.option').forEach(el => 
+    el.addEventListener('click', () => checkAnswer(+el.dataset.index))
+  );
+  document.getElementById('feedback').textContent = '';
+  document.getElementById('next-btn').disabled = true;
+  answered = false;
+}
 
-    function shuffleArray(array) {
-      const newArray = [...array];
-      for (let i = newArray.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-      }
-      return newArray;
-    }
+function checkAnswer(i) {
+  if (answered) return;
+  answered = true;
+  const q = questions[current];
+  const feedbackEl = document.getElementById('feedback');
+  if (i === q.answer) {
+    feedbackEl.textContent = 'Resposta correta!';
+    score++;
+  } else {
+    feedbackEl.textContent = `Errado. Resposta certa: ${q.options[q.answer]}`;
+  }
+  document.getElementById('next-btn').disabled = false;
+  document.querySelectorAll('.option').forEach(el => el.classList.add('disabled'));
+}
 
-    function loadQuestion() {
-      if (questions.length === 0) return;
-      
-      const q = questions[current];
-      const box = document.getElementById("question-box");
-      
-      box.innerHTML = `
-        <div class="question-text">${current + 1}. ${q.question}</div>
-        <div class="options-container">
-          ${q.options.map((opt, i) => `
-            <div class="option" data-index="${i}" onclick="checkAnswer(${i})">
-              <div class="option-letter">${String.fromCharCode(65 + i)}</div>
-              <div>${opt}</div>
-            </div>
-          `).join('')}
-        </div>
-      `;
-      
-      // Update UI elements
-      document.getElementById("current-question").textContent = current + 1;
-      document.getElementById("total-questions").textContent = questions.length;
-      document.getElementById("score-box").textContent = `${score}/${questions.length}`;
-      
-      // Update progress bar
-      updateProgress();
-      
-      // Reset answer state
-      answered = false;
-      
-      // Reset and start timer if needed
-      resetTimer();
-      
-      // Disable/enable navigation buttons
-      document.getElementById("btn-prev").disabled = current === 0;
-      document.getElementById("btn-prev").classList.toggle("btn-disabled", current === 0);
-      
-      // If this question was already answered, show the answer
-      if (answeredQuestions[current]) {
-        markAnsweredQuestion();
-      }
-      
-      // Record question start time
-      questionStartTime = Date.now();
-    }
+function nextQuestion() {
+  current++;
+  if (current >= questions.length) {
+    alert(`Simulador completo! Pontuação final: ${score}/${questions.length}`);
+    saveHistory();
+    current = 0;
+    score = 0;
+  }
+  loadQuestion();
+}
 
-    function markAnsweredQuestion() {
-      const options = document.querySelectorAll(".option");
-      const q = questions[current];
-      
-      options.forEach((opt, i) => {
-        if (i === q.answer) {
-          opt.classList.add("correct");
-        } else if (answeredQuestions[current] === i) {
-          opt.classList.add("incorrect");
-        }
-      });
-      
-      answered = true;
-    }
+// Exportar questões para Excel
+function exportToExcel() {
+  const data = questions.map(q => ({
+    Pergunta: q.question,
+    Opcao1: q.options[0],
+    Opcao2: q.options[1],
+    Opcao3: q.options[2],
+    Opcao4: q.options[3],
+    Correta: q.options[q.answer]
+  }));
+  const ws = XLSX.utils.json_to_sheet(data);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Questões');
+  XLSX.writeFile(wb, 'questoes.xlsx');
+}
 
-    function checkAnswer(i) {
-      if (answered) return;
-      
-      const q = questions[current];
-      answeredQuestions[current] = i;
-      answered = true;
-      
-      // Mark the options as correct/incorrect
-      const options = document.querySelectorAll(".option");
-      options.forEach((opt, idx) => {
-        if (idx === q.answer) {
-          opt.classList.add("correct");
-        } else if (idx === i && i !== q.answer) {
-          opt.classList.add("incorrect");
-        }
-      });
-      
-      if (i === q.answer) {
-        score++;
-        if (document.getElementById("show-feedback").checked) {
-          showNotification("Resposta correta! 👍", false);
-        }
-      } else {
-        if (document.getElementById("show-feedback").checked) {
-          showNotification(`Incorreto. A resposta certa é: ${q.options[q.answer]}`, true);
-        }
-      }
-      
-      document.getElementById("score-box").textContent = `${score}/${questions.length}`;
-    }
+// Histórico
+function saveHistory() {
+  const hist = JSON.parse(localStorage.getItem('examHistory') || '[]');
+  hist.push({
+    date: new Date().toLocaleString(),
+    score: `${score}/${questions.length}`
+  });
+  localStorage.setItem('examHistory', JSON.stringify(hist));
+  displayHistory();
+}
 
-    function nextQuestion() {
-      if (current < questions.length - 1) {
-        current++;
-        loadQuestion();
-      } else {
-        showResultModal();
-      }
-    }
+function displayHistory() {
+  const hist = JSON.parse(localStorage.getItem('examHistory') || '[]');
+  const ul = document.getElementById('exam-history');
+  ul.innerHTML = hist.map(h => `<li class="list-group-item">${h.date} - ${h.score}</li>`).join('');
+}
 
-    function prevQuestion() {
-      if (current > 0) {
-        current--;
-        loadQuestion();
-      }
-    }
+function exportHistoryToExcel() {
+  const hist = JSON.parse(localStorage.getItem('examHistory') || '[]');
+  const ws = XLSX.utils.json_to_sheet(hist);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Histórico');
+  XLSX.writeFile(wb, 'historico.xlsx');
+}
 
-    function showResultModal() {
-      document.getElementById("final-score").textContent = `${score}/${questions.length}`;
-      document.getElementById("result-modal").style.display = "flex";
-      createConfetti();
-      saveHistory();
-    }
+function clearHistory() {
+  if (confirm('Apagar todo o histórico?')) {
+    localStorage.removeItem('examHistory');
+    displayHistory();
+  }
+}
 
-    function closeModal() {
-      document.getElementById("result-modal").style.display = "none";
-    }
+window.onload = loadJSON;
 
-    function restartQuiz() {
-      closeModal();
-      if (document.getElementById("shuffle-questions").checked) {
-        questions = shuffleArray(questions);
-      }
-      current = 0;
-      score = 0;
-      answeredQuestions = [];
-      loadQuestion();
-    }
-
-    function updateProgress() {
-      const percent = ((current + 1) / questions.length) * 100;
-      document.getElementById("progress").style.width = percent + "%";
-    }
-
-    function formatTime(seconds) {
-      const mins = Math.floor(seconds / 60);
-      const secs = seconds % 60;
-      return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    }
-
-    function startTimer() {
-      if (timerInterval) clearInterval(timerInterval);
-      
-      if (document.getElementById("time-limit").checked) {
-        const timeLimit = parseInt(document.getElementById("time-limit-value").value);
-        secondsElapsed = timeLimit;
-        
-        timerInterval = setInterval(() => {
-          secondsElapsed--;
-          document.getElementById("timer").textContent = formatTime(secondsElapsed);
-          
-          if (secondsElapsed <= 0) {
-            clearInterval(timerInterval);
-            if (!answered) {
-              showNotification("Tempo esgotado!", true);
-              nextQuestion();
-            }
-          }
-        }, 1000);
-      } else {
-        secondsElapsed = 0;
-        
-        timerInterval = setInterval(() => {
-          secondsElapsed++;
-          document.getElementById("timer").textContent = formatTime(secondsElapsed);
-        }, 1000);
-      }
-    }
-
-    function resetTimer() {
-      if (timerInterval) clearInterval(timerInterval);
-      
-      if (document.getElementById("time-limit").checked) {
-        const timeLimit = parseInt(document.getElementById("time-limit-value").value);
-        secondsElapsed = timeLimit;
-        document.getElementById("timer").textContent = formatTime(secondsElapsed);
-      } else {
-        secondsElapsed = 0;
-        document.getElementById("timer").textContent = formatTime(secondsElapsed);
-      }
-      
-      startTimer();
-    }
-
-    function exportToExcel() {
-      const data = questions.map(q => ({
-        Pergunta: q.question,
-        Opcao1: q.options[0],
-        Opcao2: q.options[1],
-        Opcao3: q.options[2],
-        Opcao4: q.options[3],
-        Correta: q.options[q.answer]
-      }));
-      
-      const ws = XLSX.utils.json_to_sheet(data);
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "Questões");
-      XLSX.writeFile(wb, "questoes_radioamador.xlsx");
-      showNotification("Questões exportadas com sucesso!");
-    }
-
-    function exportHistoryToExcel() {
-      if (history.length === 0) {
-        showNotification("Não há histórico para exportar!", true);
-        return;
-      }
-      
-      const ws = XLSX.utils.json_to_sheet(history);
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "Histórico");
-      XLSX.writeFile(wb, "historico_exames.xlsx");
-      showNotification("Histórico exportado com sucesso!");
-    }
-
-    function importFromExcel(evt) {
-      const file = evt.target.files[0];
-      if (!file) return;
-      
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        try {
-          const data = new Uint8Array(e.target.result);
-          const workbook = XLSX.read(data, { type: "array" });
-          const sheet = workbook.Sheets[workbook.SheetNames[0]];
-          const imported = XLSX.utils.sheet_to_json(sheet);
-          
-          if (imported.length === 0) {
-            showNotification("Arquivo não contém questões válidas!", true);
-            return;
-          }
-          
-          questions = imported.map(q => ({
-            question: q.Pergunta,
-            options: [q.Opcao1, q.Opcao2, q.Opcao3, q.Opcao4],
-            answer: [q.Opcao1, q.Opcao2, q.Opcao3, q.Opcao4].indexOf(q.Correta)
-          }));
-          
-          localStorage.setItem("customQuestions", JSON.stringify(questions));
-          
-          if (document.getElementById("shuffle-questions").checked) {
-            questions = shuffleArray(questions);
-          }
-          
-          current = 0;
-          score = 0;
-          answeredQuestions = [];
-          loadQuestion();
-          
-          showNotification(`${questions.length} questões importadas com sucesso!`);
-        } catch (error) {
-          showNotification("Erro ao importar arquivo: " + error.message, true);
-        }
-      };
-      reader.readAsArrayBuffer(file);
-      evt.target.value = ""; // Reset file input
-    }
-
-    function saveHistory() {
-      const currentDate = new Date();
-      const formattedDate = `${currentDate.getDate().toString().padStart(2, '0')}/${(currentDate.getMonth() + 1).toString().padStart(2, '0')}/${currentDate.getFullYear()} ${currentDate.getHours().toString().padStart(2, '0')}:${currentDate.getMinutes().toString().padStart(2, '0')}`;
-      
-      const historyItem = {
-        date: formattedDate,
-        score: `${score}/${questions.length}`,
-        percentage: Math.round((score / questions.length) * 100)
-      };
-      
-      history.unshift(historyItem);
-      localStorage.setItem("examHistory", JSON.stringify(history));
-      displayHistory();
-    }
-
-    function displayHistory() {
-      const ul = document.getElementById("exam-history");
-      
-      if (history.length === 0) {
-        ul.innerHTML = "<div style='text-align: center; padding: 1rem;'>Nenhum histórico encontrado</div>";
-        return;
-      }
-      
-      ul.innerHTML = history.map(h => `
-        <div class="history-item">
-          <span class="history-date">${h.date}</span>
-          <span class="history-score">${h.score} (${h.percentage}%)</span>
-        </div>
-      `).join('');
-    }
-
-    function clearHistory() {
-      if (history.length === 0) {
-        showNotification("Não há histórico para limpar!", true);
-        return;
-      }
-      
-      if (confirm("Tem certeza que deseja apagar todo o histórico de simulados?")) {
-        history = [];
-        localStorage.removeItem("examHistory");
-        displayHistory();
-        showNotification("Histórico apagado com sucesso!");
-      }
-    }
-
-    // Tab functionality
-    document.querySelectorAll('.tab').forEach(tab => {
-      tab.addEventListener('click', function() {
-        // Remove active class from all tabs
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        // Add active class to clicked tab
-        this.classList.add('active');
-        
-        // Hide all tab content
-        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-        // Show corresponding tab content
-        document.getElementById(`${this.dataset.tab}-tab`).classList.add('active');
-      });
-    });
-
-    // Settings event listeners
-    document.getElementById('time-limit').addEventListener('change', function() {
-      document.getElementById('time-limit-value').disabled = !this.checked;
-      resetTimer();
-    });
-    
-    document.getElementById('time-limit-value').addEventListener('change', function() {
-      if (document.getElementById('time-limit').checked) {
-        resetTimer();
-      }
-    });
-
-    function init() {
-      // Load questions from localStorage or use defaults
-      try {
-        questions = JSON.parse(localStorage.getItem("customQuestions")) || defaultQuestions;
-      } catch (e) {
-        questions = defaultQuestions;
-      }
-      
-      // Load history from localStorage
-      try {
-        history = JSON.parse(localStorage.getItem("examHistory")) || [];
-      } catch (e) {
-        history = [];
-      }
-      
-      // Initial shuffle if enabled
-      if (document.getElementById("shuffle-questions").checked) {
-        questions = shuffleArray(questions);
-      }
-      
-      // Initialize UI
-      displayHistory();
-      loadQuestion();
-      
-      // Set up settings from localStorage if available
-      try {
-        const settings = JSON.parse(localStorage.getItem("quizSettings"));
-        if (settings) {
-          document.getElementById("shuffle-questions").checked = settings.shuffle;
-          document.getElementById("show-feedback").checked = settings.feedback;
-          document.getElementById("time-limit").checked = settings.timeLimit;
-          document.getElementById("time-limit-value").value = settings.timeLimitValue;
-          document.getElementById("time-limit-value").disabled = !settings.timeLimit;
-        }
-      } catch (e) {
-        // Use defaults
-      }
-    }
-    
-    // Save settings when changed
-    function saveSettings() {
-      const settings = {
-        shuffle: document.getElementById("shuffle-questions").checked,
-        feedback: document.getElementById("show-feedback").checked,
-        timeLimit: document.getElementById("time-limit").checked,
-        timeLimitValue: document.getElementById("time-limit-value").value
-      };
-      localStorage.setItem("quizSettings", JSON.stringify(settings));
-    }
-    
-    // Add event listeners to all settings inputs
-    document.querySelectorAll('#settings-tab input, #settings-tab select').forEach(input => {
-      input.addEventListener('change', saveSettings);
-    });
-
-    // Window resize event handler for responsive design
-    window.addEventListener('resize', function() {
-      // Adjust UI for different screen sizes if needed
-    });
-    
-    // Initialize the app
-    init();
+  </script>
+</body>
+</html>
