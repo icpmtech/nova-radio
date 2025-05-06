@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulador Rádio Amador</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #000;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .question-container {
+      background: #111;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #0ff;
+      padding: 20px;
+      max-width: 500px;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .option {
+      background: #222;
+      border: 2px solid #0ff;
+      border-radius: 12px;
+      padding: 10px;
+      margin: 10px 0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .option:hover {
+      background: #0ff;
+      color: #000;
+    }
+    .btn {
+      padding: 10px 20px;
+      background: #0ff;
+      color: #000;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+    .btn:hover {
+      background: #00f5c0;
+    }
+  </style>
+</head>
+<body>
+  <div class="question-container" id="question-box"></div>
+  <button class="btn" onclick="nextQuestion()">Próxima</button>  <script>
+    const questions = [
+      {
+        question: "Qual é a função de uma antena num sistema de rádio?",
+        options: [
+          "Converter sinais de áudio em sinais digitais",
+          "Converter sinais elétricos em ondas de rádio e vice-versa",
+          "Reduzir a potência do transmissor",
+          "Amplificar o sinal de microfone"
+        ],
+        answer: 1
+      },
+      {
+        question: "O que significa a sigla VHF?",
+        options: [
+          "Very High Frequency",
+          "Variable High Flux",
+          "Very Harmonic Field",
+          "Voltage High Frequency"
+        ],
+        answer: 0
+      },
+      {
+        question: "Qual destes modos é considerado analógico?",
+        options: ["DMR", "D-STAR", "FM", "FT8"],
+        answer: 2
+      },
+      {
+        question: "A licença de Classe 3 permite transmitir em que bandas?",
+        options: [
+          "Todas as bandas de HF, VHF e UHF",
+          "Apenas bandas HF",
+          "Bandas VHF e UHF",
+          "Apenas banda de 11 metros"
+        ],
+        answer: 2
+      }
+    ];
+
+    let current = 0;
+
+    function loadQuestion() {
+      const q = questions[current];
+      const box = document.getElementById("question-box");
+      box.innerHTML = `<h2>${q.question}</h2>` +
+        q.options.map((opt, i) => `
+          <div class="option" onclick="checkAnswer(${i})">${opt}</div>
+        `).join('');
+    }
+
+    function checkAnswer(i) {
+      const q = questions[current];
+      if (i === q.answer) {
+        alert("Resposta correta!");
+      } else {
+        alert("Errado. A resposta certa é: " + q.options[q.answer]);
+      }
+    }
+
+    function nextQuestion() {
+      current = (current + 1) % questions.length;
+      loadQuestion();
+    }
+
+    loadQuestion();
+  </script></body>
+</html>
