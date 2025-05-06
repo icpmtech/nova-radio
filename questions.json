@@ -1,0 +1,22 @@
+[
+  {
+    "question": "Qual é a função de uma antena num sistema de rádio?",
+    "options": [
+      "Converter sinais de áudio em sinais digitais",
+      "Converter sinais elétricos em ondas de rádio e vice-versa",
+      "Reduzir a potência do transmissor",
+      "Amplificar o sinal de microfone"
+    ],
+    "answer": 1
+  },
+  {
+    "question": "O que significa a sigla VHF?",
+    "options": [
+      "Very High Frequency",
+      "Variable High Flux",
+      "Very Harmonic Field",
+      "Voltage High Frequency"
+    ],
+    "answer": 0
+  }
+]
