@@ -1,22 +1,312 @@
 [
   {
-    "question": "Qual é a função de uma antena num sistema de rádio?",
+    "question": "No que respeita às Leis de Kirchhoff qual das seguintes afirmações é verdadeira?",
     "options": [
-      "Converter sinais de áudio em sinais digitais",
-      "Converter sinais elétricos em ondas de rádio e vice-versa",
-      "Reduzir a potência do transmissor",
-      "Amplificar o sinal de microfone"
+      "Existem duas leis: a lei dos nós e a lei das malhas",
+      "Existem três leis: a lei dos nós, a lei das redes e a lei das malhas",
+      "Existem duas leis: a lei das redes e a lei das fontes",
+      "Nenhuma das afirmações está correta"
     ],
-    "answer": 1
+    "answer": "Existem duas leis: a lei dos nós e a lei das malhas"
   },
   {
-    "question": "O que significa a sigla VHF?",
+    "question": "A lei das malhas de Kirchhoff, também se designa por:",
     "options": [
-      "Very High Frequency",
-      "Variable High Flux",
-      "Very Harmonic Field",
-      "Voltage High Frequency"
+      "Lei das potências",
+      "Lei das tensões",
+      "Lei das correntes",
+      "Lei das resistências"
     ],
-    "answer": 0
+    "answer": "Lei das tensões"
+  },
+  {
+    "question": "Num circuito em paralelo, como se relaciona a corrente total com a corrente individual em cada uma das ramificações?",
+    "options": [
+      "A corrente total é igual ao valor médio das correntes nas várias ramificações",
+      "A corrente total diminui à medida que ramificações paralelas vão sendo adicionadas ao circuito",
+      "A corrente total é igual à soma das correntes nas várias ramificações",
+      "A corrente total é igual à soma do inverso de cada queda individual de tensão"
+    ],
+    "answer": "A corrente total é igual à soma das correntes nas várias ramificações"
+  },
+  {
+    "question": "Uma gaiola de Faraday constitui uma proteção eficaz relativamente a quê?",
+    "options": [
+      "Campos eletromagnéticos",
+      "Ondas sonoras",
+      "Sismos",
+      "Nenhuma das respostas anteriores está correta"
+    ],
+    "answer": "Campos eletromagnéticos"
+  },
+  {
+    "question": "Duma forma geral, qual das seguintes linhas de transmissão possui a melhor blindagem a campos eletromagnéticos?",
+    "options": [
+      "Cabo coaxial",
+      "PLC - \"Power Line Communications\"",
+      "Par telefónico",
+      "Todas possuem blindagem"
+    ],
+    "answer": "Cabo coaxial"
+  },
+  {
+    "question": "Qual das expressões define a efetividade da blindagem (S) para campos elétricos?",
+    "options": [
+      "S = 20·log(Ei/Et)",
+      "S = 1 - log(Ei/Et)",
+      "S = 20×log(Ei/Et)",
+      "S = 20 - log(Ei/Et)"
+    ],
+    "answer": "S = 20·log(Ei/Et)"
+  },
+  {
+    "question": "A ionosfera constitui uma blindagem à volta da Terra, a campos eletromagnéticos:",
+    "options": [
+      "Apenas para radiação ótica",
+      "Apenas acima de 1 GHz",
+      "Em todas as frequências",
+      "Em determinadas frequências"
+    ],
+    "answer": "Em determinadas frequências"
+  },
+  {
+    "question": "Quais são os efeitos da blindagem sobre os campos magnéticos?",
+    "options": [
+      "Reflexão e absorção",
+      "Reflexão e efeito de túnel",
+      "Absorção e efeito de túnel",
+      "Reflexão e aumento da velocidade de propagação"
+    ],
+    "answer": "Reflexão e absorção"
+  },
+  {
+    "question": "Qual o equipamento mais adequado para medir a diferença de fase entre dois sinais sinusoidais?",
+    "options": [
+      "Wattímetro",
+      "Osciloscópio",
+      "Frequencímetro",
+      "Medidor de onda estacionária"
+    ],
+    "answer": "Osciloscópio"
+  },
+  {
+    "question": "Como se designam as figuras que representam num osciloscópio a relação de fase entre dois sinais sinusoidais?",
+    "options": [
+      "Figuras de Lissajous",
+      "Figuras de Dirac",
+      "Figuras de mérito",
+      "Figuras de Watt"
+    ],
+    "answer": "Figuras de Lissajous"
+  },
+  {
+    "question": "Que tipo de circuitos ideais apresentam os sinais de corrente e de tensão em fase?",
+    "options": [
+      "Circuitos puramente capacitivos",
+      "Circuitos puramente resistivos",
+      "Circuitos puramente indutivos",
+      "Qualquer tipo de circuito"
+    ],
+    "answer": "Circuitos puramente resistivos"
+  },
+  {
+    "question": "Diz-se que dois sinais sinusoidais estão em quadratura quando o desfasamento entre eles é de:",
+    "options": [
+      "0 graus",
+      "60 graus",
+      "90 graus",
+      "180 graus"
+    ],
+    "answer": "90 graus"
+  },
+  {
+    "question": "A potência de ruído é dada por Pn = kTB. Como se designa a constante k?",
+    "options": [
+      "Constante de Kelvin",
+      "Constante de Lissajous",
+      "Constante de Dirac",
+      "Constante de Boltzmann"
+    ],
+    "answer": "Constante de Boltzmann"
+  },
+  {
+    "question": "Como podemos diminuir a potência de ruído de um sistema de receção?",
+    "options": [
+      "Aumentando a largura de banda",
+      "Aumentando a temperatura de ruído",
+      "Filtrando para diminuir a banda sem degradar o sinal",
+      "Nenhuma das anteriores"
+    ],
+    "answer": "Filtrando para diminuir a banda sem degradar o sinal"
+  },
+  {
+    "question": "O ruído térmico é um sinal de que natureza?",
+    "options": [
+      "Sinusoidal",
+      "Contínuo",
+      "Quadrático",
+      "Aleatório"
+    ],
+    "answer": "Aleatório"
+  },
+  {
+    "question": "O que significa FSK?",
+    "options": [
+      "Frequency Shift Keying",
+      "Forward Shunt Keying",
+      "Frequency Shunt Kelvin",
+      "Forward Shift Keying"
+    ],
+    "answer": "Frequency Shift Keying"
+  },
+  {
+    "question": "Ao transmitir um sinal de dados, por que razão é importante conhecer o duty cycle?",
+    "options": [
+      "Para ajudar a sintonizar o transmissor",
+      "Para evitar danos no estágio final",
+      "Para permitir tempo de chamada de outras estações",
+      "Todas as opções anteriores"
+    ],
+    "answer": "Para evitar danos no estágio final"
+  },
+  {
+    "question": "Que tipo de informação pode ser transmitida por formas de onda digitais?",
+    "options": [
+      "Voz humana",
+      "Sinais de vídeo",
+      "Dados",
+      "Todas as opções anteriores"
+    ],
+    "answer": "Todas as opções anteriores"
+  },
+  {
+    "question": "O bit rate pode ser definido como:",
+    "options": [
+      "Número de bits por segundo",
+      "Taxa de erros por bit",
+      "Número de inversões de fase",
+      "Quantidade de informação por bit"
+    ],
+    "answer": "Número de bits por segundo"
+  },
+  {
+    "question": "Em PPM (Pulse-Position Modulation), qual parâmetro varia?",
+    "options": [
+      "Número de pulsos por segundo",
+      "Amplitude dos pulsos",
+      "Duração dos pulsos",
+      "Momento de cada pulso"
+    ],
+    "answer": "Momento de cada pulso"
+  },
+  {
+    "question": "A que estão associadas as siglas CRC e FEC?",
+    "options": [
+      "Técnicas de modulação",
+      "Sistemas de deteção de erros",
+      "Sistemas de amplificação de RF",
+      "Sistemas de adaptação de impedâncias"
+    ],
+    "answer": "Sistemas de deteção de erros"
+  },
+  {
+    "question": "Numa comunicação o bit rate é 9600 baud e o baud rate é 4800. Qual o número de bits por símbolo?",
+    "options": [
+      "2",
+      "4",
+      "8",
+      "16"
+    ],
+    "answer": "2"
+  },
+  {
+    "question": "Duma forma geral, quanto maior o bit rate, a largura de banda necessária:",
+    "options": [
+      "Diminui",
+      "Aumenta",
+      "Não depende",
+      "Depende só da potência refletida"
+    ],
+    "answer": "Aumenta"
+  },
+  {
+    "question": "A ADC (Conversão Analógica/Digital) divide-se em três etapas: amostragem, quantificação e:",
+    "options": [
+      "Diferenciação",
+      "Integração",
+      "Codificação",
+      "Filtragem"
+    ],
+    "answer": "Codificação"
+  },
+  {
+    "question": "O teorema de Nyquist estabelece que a frequência de amostragem deve ser no mínimo:",
+    "options": [
+      "Igual à maior frequência do sinal",
+      "O dobro da maior frequência do sinal",
+      "Quatro vezes a maior frequência",
+      "Dez vezes a maior frequência"
+    ],
+    "answer": "O dobro da maior frequência do sinal"
+  },
+  {
+    "question": "O aliasing na ADC consiste em:",
+    "options": [
+      "Distorção por componentes de má qualidade",
+      "Distorção aleatória em alta frequência",
+      "Distorção não linear dos amplificadores",
+      "Distorção por violação do teorema de Nyquist"
+    ],
+    "answer": "Distorção por violação do teorema de Nyquist"
+  },
+  {
+    "question": "A convolução de dois pulsos retangulares resulta em:",
+    "options": [
+      "Um pulso retangular",
+      "Um pulso triangular",
+      "Um pulso de amplitude infinita",
+      "Um pulso de amplitude nula"
+    ],
+    "answer": "Um pulso triangular"
+  },
+  {
+    "question": "Como reage um condensador a uma corrente alternada?",
+    "options": [
+      "Reactância diminui com frequência",
+      "Reactância aumenta com frequência",
+      "Reactância aumenta com amplitude",
+      "Reactância diminui com amplitude"
+    ],
+    "answer": "Reactância diminui com frequência"
+  },
+  {
+    "question": "Num condensador plano, a capacidade aumenta quando:",
+    "options": [
+      "Aumenta a área das placas",
+      "Diminui a distância entre placas",
+      "Aumenta a constante dielétrica",
+      "Todas as anteriores"
+    ],
+    "answer": "Todas as anteriores"
+  },
+  {
+    "question": "A reactância de um condensador é tanto maior quanto:",
+    "options": [
+      "Menor a sua capacidade",
+      "Maior a sua capacidade",
+      "Menor a sua indutância",
+      "Maior a sua indutância"
+    ],
+    "answer": "Menor a sua capacidade"
+  },
+  {
+    "question": "Em que consiste a reactância de uma bobina?",
+    "options": [
+      "Oposição à corrente contínua",
+      "Oposição à corrente alternada pela indutância",
+      "Propriedade de resistências ideais",
+      "Faísca nos contactos ao desligar"
+    ],
+    "answer": "Oposição à corrente alternada pela indutância"
   }
 ]
