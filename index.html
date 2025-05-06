@@ -1,3 +1,4 @@
+
 <!DOCTYPE html><html lang="pt" data-theme="light">
 <head>
   <meta charset="UTF-8">
@@ -35,68 +36,23 @@
       color: var(--text);
       transition: background-color 0.3s, color 0.3s;
     }
-    /* Sidebar */
-    .sidebar {
-      background-color: var(--sidebar-bg);
-    }
-    .sidebar .btn {
-      color: var(--accent);
-    }
-    .sidebar .btn:hover {
-      background-color: var(--accent-hover);
-      color: #fff;
-    }
-    /* Navbar small */
-    .navbar {
-      background-color: var(--sidebar-bg) !important;
-    }
-    .navbar .btn-theme {
-      color: var(--accent);
-    }
-    /* Main content */
+    .sidebar { background-color: var(--sidebar-bg); }
+    .sidebar .btn { color: var(--accent); }
+    .sidebar .btn:hover { background-color: var(--accent-hover); color: #fff; }
+    .navbar { background-color: var(--sidebar-bg) !important; }
+    .navbar .btn-theme { color: var(--accent); }
     main { margin-left: 80px; }
-    /* Headings */
-    h1, h2 { color: var(--accent); }
-    /* Progress bar */
+    h1,h2 { color: var(--accent); }
     .progress-bar { background-color: var(--accent) !important; }
-    /* Cards */
-    .card-custom {
-      background-color: var(--card-bg);
-      border: none;
-    }
-    /* Buttons */
-    .btn-custom {
-      background-color: var(--accent);
-      color: #fff;
-    }
-    .btn-custom:hover {
-      background-color: var(--accent-hover);
-    }
-    /* Options */
-    .option {
-      background-color: var(--card-bg);
-      border: 1px solid var(--accent);
-      transition: background-color 0.2s, border-color 0.2s;
-    }
-    .option:hover:not(.disabled) {
-      background-color: var(--accent);
-      color: #fff;
-    }
-    .option.correct {
-      background-color: var(--success) !important;
-      border-color: var(--success) !important;
-      color: #fff;
-    }
-    .option.wrong {
-      background-color: var(--danger) !important;
-      border-color: var(--danger) !important;
-      color: #fff;
-    }
-    /* Feedback */
+    .card-custom { background-color: var(--card-bg); border: none; }
+    .btn-custom { background-color: var(--accent); color: #fff; }
+    .btn-custom:hover { background-color: var(--accent-hover); }
+    .option { background-color: var(--card-bg); border: 1px solid var(--accent); transition: background-color 0.2s, border-color 0.2s; }
+    .option:hover:not(.disabled) { background-color: var(--accent); color: #fff; }
+    .option.correct { background-color: var(--success) !important; border-color: var(--success) !important; color: #fff; }
+    .option.wrong { background-color: var(--danger) !important; border-color: var(--danger) !important; color: #fff; }
     #feedback span { font-weight: bold; }
-    /* History */
     .history li { background-color: var(--card-bg); }
-    /* Utility */
     .disabled { pointer-events: none; opacity: 0.7; }
   </style>
 </head>
@@ -107,6 +63,7 @@
     <button class="btn mb-3" title="Início" onclick="scrollTo('inicio')"><i class="bi bi-house-fill fs-4"></i></button>
     <button class="btn mb-3" title="Questões" onclick="scrollTo('questoes')"><i class="bi bi-question-circle-fill fs-4"></i></button>
     <button class="btn mb-3" title="Importar/Exportar" onclick="scrollTo('ajuda')"><i class="bi bi-upload fs-4"></i></button>
+    <button class="btn mb-3" title="Reset Questões" onclick="resetQuestions()"><i class="bi bi-arrow-counterclockwise fs-4"></i></button>
     <button class="btn mb-3" title="Histórico" onclick="scrollTo('historico')"><i class="bi bi-clock-history fs-4"></i></button>
   </div>
   <!-- Top Navbar for small screens -->
@@ -116,27 +73,23 @@
       <button class="btn btn-light" onclick="scrollTo('inicio')"><i class="bi bi-house-fill"></i></button>
       <button class="btn btn-light" onclick="scrollTo('questoes')"><i class="bi bi-question-circle-fill"></i></button>
       <button class="btn btn-light" onclick="scrollTo('ajuda')"><i class="bi bi-upload"></i></button>
+      <button class="btn btn-light" onclick="resetQuestions()"><i class="bi bi-arrow-counterclockwise"></i></button>
       <button class="btn btn-light" onclick="scrollTo('historico')"><i class="bi bi-clock-history"></i></button>
     </div>
   </nav>
   <main class="container py-4">
-    <!-- Início -->
     <section id="inicio" class="text-center mb-4">
       <h1 class="display-4"><i class="bi bi-lightning-fill"></i> Simulador Rádio Amador</h1>
       <div class="progress mb-2"><div class="progress-bar progress-bar-striped" id="progress"></div></div>
       <small id="progress-text"></small>
     </section>
-    <!-- Questões -->
     <section id="questoes" class="mb-4">
       <h2 class="h4 mb-3"><i class="bi bi-list-check"></i> Questão Atual</h2>
       <div class="card card-custom mb-3"><div class="card-body" id="question-box"></div></div>
       <div id="feedback" class="mb-3 text-center"></div>
-      <div class="d-flex justify-content-center mb-3">
-        <button class="btn btn-custom" id="next-btn" onclick="nextQuestion()" disabled><i class="bi bi-arrow-right-circle"></i> Próxima</button>
-      </div>
+      <div class="d-flex justify-content-center mb-3"><button class="btn btn-custom" id="next-btn" onclick="nextQuestion()" disabled><i class="bi bi-arrow-right-circle"></i> Próxima</button></div>
       <div class="text-center mb-4"><span class="badge bg-info text-dark" id="score-box"></span></div>
     </section>
-    <!-- Importar/Exportar -->
     <section id="ajuda" class="mb-4">
       <h2 class="h4 mb-3"><i class="bi bi-file-earmark-arrow-up"></i> Importar/Exportar</h2>
       <div class="d-flex flex-wrap gap-2">
@@ -145,94 +98,38 @@
         <button class="btn btn-custom" onclick="exportHistoryToExcel()"><i class="bi bi-file-earmark-medical-fill"></i> Exportar Histórico</button>
       </div>
     </section>
-    <!-- Histórico -->
     <section id="historico" class="mb-4">
       <h2 class="h4 mb-3"><i class="bi bi-journal-text"></i> Histórico de Exames</h2>
       <ul id="exam-history"></ul>
       <div class="d-flex gap-2 mt-3"><button class="btn btn-custom" onclick="clearHistory()"><i class="bi bi-trash-fill"></i> Limpar Histórico</button></div>
     </section>
   </main>
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     // Theme toggle
-    function toggleTheme() {
-      const html = document.documentElement;
-      const current = html.getAttribute('data-theme');
-      const next = current === 'light' ? 'dark' : 'light';
-      html.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-      updateIcons(next);
-    }
-    function updateIcons(theme) {
-      const icon = document.getElementById('theme-icon');
-      const iconSm = document.getElementById('theme-icon-sm');
-      if (theme === 'dark') {
-        icon.className = 'bi bi-sun-fill fs-4';
-        iconSm.className = 'bi bi-sun-fill';
-      } else {
-        icon.className = 'bi bi-moon-fill fs-4';
-        iconSm.className = 'bi bi-moon-fill';
-      }
-    }
-    // Remember theme
-    (function() {
-      const saved = localStorage.getItem('theme');
-      if (saved) {
-        document.documentElement.setAttribute('data-theme', saved);
-      }
-      updateIcons(document.documentElement.getAttribute('data-theme'));
-    })();
-    // Scrolling
-    function scrollTo(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
-    // Quiz logic (unchanged)
-    let questions = [];
-    const defaultQuestions = [
-      { question: 'Qual é a função de uma antena num sistema de rádio?', options: ['Converter sinais de áudio em sinais digitais', 'Converter sinais elétricos em ondas de rádio e vice-versa', 'Reduzir a potência do transmissor', 'Amplificar o sinal de microfone'], answer: 1 },
-      { question: 'O que significa a sigla VHF?', options: ['Very High Frequency', 'Variable High Flux', 'Very Harmonic Field', 'Voltage High Frequency'], answer: 0 }
-    ];
-    let current = 0, score = 0, answered = false;
-    const nextBtn = document.getElementById('next-btn');
-    function loadQuestion() {
-      const q = questions[current];
-      document.getElementById('progress').style.width = `${((current + 1) / questions.length) * 100}%`;
-      document.getElementById('progress-text').textContent = `Pergunta ${current+1} de ${questions.length}`;
-      const box = document.getElementById('question-box');
-      box.innerHTML = `<h5>${q.question}</h5>` + q.options.map((opt, i) => `<div class="option p-2 mb-2 border rounded" data-index="${i}">${opt}</div>`).join('');
-      document.querySelectorAll('.option').forEach(el => el.addEventListener('click', () => checkAnswer(+el.dataset.index)));
-      document.getElementById('feedback').textContent = '';
-      updateScore(); nextBtn.disabled = true; answered = false;
-    }
-    function checkAnswer(i) {
-      if (answered) return; answered = true; nextBtn.disabled = false;
-      const q = questions[current]; const feedbackEl = document.getElementById('feedback');
-      if (i === q.answer) {
-        feedbackEl.innerHTML = `<span class="text-success">Resposta correta! <i class="bi bi-check-circle-fill"></i></span>`;
-        document.querySelector(`.option[data-index="${i}"]`).classList.add('border-success'); score++;
-      } else {
-        feedbackEl.innerHTML = `<span class="text-danger">Errado. Resposta certa: ${q.options[q.answer]} <i class="bi bi-x-circle-fill"></i></span>`;
-        document.querySelector(`.option[data-index="${i}"]`).classList.add('border-danger');
-        document.querySelector(`.option[data-index="${q.answer}"]`).classList.add('border-success');
-      }
-      document.querySelectorAll('.option').forEach(el => el.classList.add('disabled'));
-      updateScore();
-    }
-    function nextQuestion() {
-      current++; if (current >= questions.length) {
-        document.getElementById('feedback').innerHTML = `<span class="text-info">Simulador completo! Pontuação final: ${score}/${questions.length} <i class="bi bi-flag-checkered"></i></span>`;
-        saveHistory(); current = 0; score = 0;
-      }
-      loadQuestion();
-    }
-    function updateScore() { document.getElementById('score-box').textContent = `Pontuação: ${score}/${questions.length}`; }
-    function exportToExcel() { const data = questions.map(q => ({ Pergunta: q.question, Opcao1: q.options[0], Opcao2: q.options[1], Opcao3: q.options[2], Opcao4: q.options[3], Correta: q.options[q.answer] })); const ws = XLSX.utils.json_to_sheet(data); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, 'Questões'); XLSX.writeFile(wb, 'questoes_radioamador.xlsx'); }
-    function exportHistoryToExcel() { const hist = JSON.parse(localStorage.getItem('examHistory') || '[]'); const ws = XLSX.utils.json_to_sheet(hist); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, 'Histórico'); XLSX.writeFile(wb, 'historico_exames.xlsx'); }
-    function importFromExcel(evt) { const file = evt.target.files[0]; const reader = new FileReader(); reader.onload = e => { const data = new Uint8Array(e.target.result); const wb = XLSX.read(data, { type: 'array' }); const sheet = wb.Sheets[wb.SheetNames[0]]; const imp = XLSX.utils.sheet_to_json(sheet); questions = imp.map(q => ({ question: q.Pergunta, options: [q.Opcao1, q.Opcao2, q.Opcao3, q.Opcao4], answer: [q.Opcao1, q.Opcao2, q.Opcao3, q.Opcao4].indexOf(q.Correta) })); current = 0; score = 0; loadQuestion(); }; reader.readAsArrayBuffer(file); }
-    function saveHistory() { const hist = JSON.parse(localStorage.getItem('examHistory') || '[]'); hist.push({ date: new Date().toLocaleString(), score: `${score}/${questions.length}` }); localStorage.setItem('examHistory', JSON.stringify(hist)); displayHistory(); }
-    function displayHistory() { const hist = JSON.parse(localStorage.getItem('examHistory') || '[]'); document.getElementById('exam-history').innerHTML = hist.map(h => `<li><i class="bi bi-clock-fill me-2"></i>${h.date} - ${h.score}</li>`).join(''); }
-    function clearHistory() { if (confirm('Apagar histórico?')) { localStorage.removeItem('examHistory'); displayHistory(); } }
-    function init() { questions = JSON.parse(localStorage.getItem('customQuestions')) || defaultQuestions; displayHistory(); loadQuestion(); }
-    init();
+    function toggleTheme() { const html = document.documentElement; const cur = html.getAttribute('data-theme'); const next = cur==='light'?'dark':'light'; html.setAttribute('data-theme', next); localStorage.setItem('theme', next); updateIcons(next); }
+    function updateIcons(t) { const ic = document.getElementById('theme-icon'), ic2 = document.getElementById('theme-icon-sm'); if(t==='dark'){ ic.className='bi bi-sun-fill fs-4'; ic2.className='bi bi-sun-fill'; } else { ic.className='bi bi-moon-fill fs-4'; ic2.className='bi bi-moon-fill'; } }
+    (function(){ const saved=localStorage.getItem('theme'); if(saved)document.documentElement.setAttribute('data-theme',saved); updateIcons(document.documentElement.getAttribute('data-theme')); })();
+    function scrollTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
+    let questions=[]; const defaultQuestions=[]; // will load from json
+    let current=0,score=0,answered=false;
+    const nextBtn=document.getElementById('next-btn');
+    // Load from JSON and initialize
+    async function loadJSON(){ try{ const resp=await fetch('questions.json'); const data=await resp.json(); questions=data; localStorage.setItem('customQuestions', JSON.stringify(data)); initQuiz(); }catch(err){ console.error(err); questions=JSON.parse(localStorage.getItem('customQuestions'))||defaultQuestions; initQuiz(); }}
+    function initQuiz(){ displayHistory(); loadQuestion(); }
+    function resetQuestions(){ localStorage.removeItem('customQuestions'); loadJSON(); }
+    function loadQuestion(){ const q=questions[current]; document.getElementById('progress').style.width=`${((current+1)/questions.length)*100}%`; document.getElementById('progress-text').textContent=`Pergunta ${current+1} de ${questions.length}`; const box=document.getElementById('question-box'); box.innerHTML=`<h5>${q.question}</h5>`+q.options.map((opt,i)=>`<div class="option p-2 mb-2 border rounded" data-index="${i}">${opt}</div>`).join(''); document.querySelectorAll('.option').forEach(el=>el.addEventListener('click',()=>checkAnswer(+el.dataset.index))); document.getElementById('feedback').textContent=''; updateScore(); nextBtn.disabled=true; answered=false; }
+    function checkAnswer(i){ if(answered) return; answered=true; nextBtn.disabled=false; const q=questions[current], fb=document.getElementById('feedback'); if(i===q.answer){ fb.innerHTML=`<span class="text-success">Resposta correta! <i class="bi bi-check-circle-fill"></i></span>`; document.querySelector(`.option[data-index="${i}"]`).classList.add('border-success'); score++; } else { fb.innerHTML=`<span class="text-danger">Errado. Resposta certa: ${q.options[q.answer]} <i class="bi bi-x-circle-fill"></i></span>`; document.querySelector(`.option[data-index="${i}"]`).classList.add('border-danger'); document.querySelector(`.option[data-index="${q.answer}"]`).classList.add('border-success'); } document.querySelectorAll('.option').forEach(el=>el.classList.add('disabled')); updateScore(); }
+    function nextQuestion(){ current++; if(current>=questions.length){ document.getElementById('feedback').innerHTML=`<span class="text-info">Simulador completo! Pontuação final: ${score}/${questions.length} <i class="bi bi-flag-checkered"></i></span>`; saveHistory(); current=0; score=0; } loadQuestion(); }
+    function updateScore(){ document.getElementById('score-box').textContent=`Pontuação: ${score}/${questions.length}`; }
+    function exportToExcel(){ const data=questions.map(q=>({Pergunta:q.question,Opcao1:q.options[0],Opcao2:q.options[1],Opcao3:q.options[2],Opcao4:q.options[3],Correta:q.options[q.answer]})); const ws=XLSX.utils.json_to_sheet(data); const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,'Questões'); XLSX.writeFile(wb,'questoes_radioamador.xlsx'); }
+    function exportHistoryToExcel(){ const hist=JSON.parse(localStorage.getItem('examHistory')||'[]'); const ws=XLSX.utils.json_to_sheet(hist); const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,'Histórico'); XLSX.writeFile(wb,'historico_exames.xlsx'); }
+    function importFromExcel(evt){ const reader=new FileReader(); reader.onload=e=>{ const data=new Uint8Array(e.target.result); const wb=XLSX.read(data,{type:'array'}); const sheet=wb.Sheets[wb.SheetNames[0]]; const imp=XLSX.utils.sheet_to_json(sheet); questions=imp.map(q=>({question:q.Pergunta,options:[q.Opcao1,q.Opcao2,q.Opcao3,q.Opcao4],answer:[q.Opcao1,q.Opcao2,q.Opcao3,q.Opcao4].indexOf(q.Correta)})); current=0; score=0; loadQuestion(); }; reader.readAsArrayBuffer(evt.target.files[0]); }
+    function saveHistory(){ const hist=JSON.parse(localStorage.getItem('examHistory')||'[]'); hist.push({date:new Date().toLocaleString(),score:`${score}/${questions.length}`}); localStorage.setItem('examHistory',JSON.stringify(hist)); displayHistory(); }
+    function displayHistory(){ const hist=JSON.parse(localStorage.getItem('examHistory')||'[]'); document.getElementById('exam-history').innerHTML=hist.map(h=>`<li><i class="bi bi-clock-fill me-2"></i>${h.date} - ${h.score}</li>`).join(''); }
+    function clearHistory(){ if(confirm('Apagar histórico?')){ localStorage.removeItem('examHistory'); displayHistory(); }}
+    // Initialize loading of JSON questions
+    window.onload = loadJSON;
   </script>
 </body>
 </html>
