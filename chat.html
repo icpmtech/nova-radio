@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Web Bluetooth Chat</title>
+  <style>
+    body { font-family: sans-serif; padding: 2em; background: #111; color: #0f0; }
+    #messages { border: 1px solid #0f0; height: 200px; overflow-y: scroll; padding: 1em; margin-bottom: 1em; }
+    input, button { padding: 0.5em; font-size: 1em; }
+    button { background: #0f0; color: #000; border: none; }
+  </style>
+</head>
+<body>
+
+<h1>Bluetooth Chat</h1>
+<div id="messages">Messages will appear here...</div>
+
+<input id="text" type="text" placeholder="Type a message" />
+<button onclick="sendMessage()">Send</button>
+<button onclick="connectBluetooth()">Connect</button>
+
+<script>
+  let bleCharacteristic;
+  const messages = document.getElementById('messages');
+
+  async function connectBluetooth() {
+    try {
+      const device = await navigator.bluetooth.requestDevice({
+        filters: [{ services: ['0000ffe0-0000-1000-8000-00805f9b34fb'] }]
+      });
+
+      const server = await device.gatt.connect();
+      const service = await server.getPrimaryService('0000ffe0-0000-1000-8000-00805f9b34fb');
+      bleCharacteristic = await service.getCharacteristic('0000ffe1-0000-1000-8000-00805f9b34fb');
+
+      await bleCharacteristic.startNotifications();
+      bleCharacteristic.addEventListener('characteristicvaluechanged', handleIncomingMessage);
+
+      logMessage("Connected to " + device.name);
+    } catch (error) {
+      logMessage("Connection failed: " + error);
+    }
+  }
+
+  function sendMessage() {
+    const text = document.getElementById('text').value;
+    if (bleCharacteristic && text) {
+      const encoder = new TextEncoder();
+      bleCharacteristic.writeValue(encoder.encode(text + "\n"));
+      logMessage("You: " + text);
+      document.getElementById('text').value = '';
+    } else {
+      logMessage("Not connected or empty message.");
+    }
+  }
+
+  function handleIncomingMessage(event) {
+    const decoder = new TextDecoder();
+    const message = decoder.decode(event.target.value);
+    logMessage("Device: " + message);
+  }
+
+  function logMessage(msg) {
+    messages.innerHTML += msg + "<br>";
+    messages.scrollTop = messages.scrollHeight;
+  }
+</script>
+
+</body>
+</html>
