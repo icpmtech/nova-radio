@@ -2,26 +2,91 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Web Bluetooth Chat</title>
+  <title>Rádio Bluetooth</title>
   <style>
-    body { font-family: sans-serif; padding: 2em; background: #111; color: #0f0; }
-    #messages { border: 1px solid #0f0; height: 200px; overflow-y: scroll; padding: 1em; margin-bottom: 1em; }
-    input, button { padding: 0.5em; font-size: 1em; }
-    button { background: #0f0; color: #000; border: none; }
+    body {
+      font-family: 'Courier New', monospace;
+      background-color: #000;
+      color: #33ff33;
+      padding: 20px;
+      margin: 0;
+    }
+
+    h1 {
+      text-align: center;
+      border-bottom: 2px solid #33ff33;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    #messages {
+      background-color: #101010;
+      border: 2px inset #33ff33;
+      height: 250px;
+      overflow-y: auto;
+      padding: 10px;
+      margin-bottom: 15px;
+      font-size: 1em;
+    }
+
+    input, button {
+      font-family: 'Courier New', monospace;
+      font-size: 1em;
+      padding: 10px;
+      margin-right: 5px;
+    }
+
+    input {
+      width: 60%;
+      background-color: #000;
+      color: #33ff33;
+      border: 1px solid #33ff33;
+    }
+
+    button {
+      background-color: #33ff33;
+      color: #000;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #66ff66;
+    }
+
+    #controls {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    small {
+      display: block;
+      margin-top: 10px;
+      text-align: center;
+      font-size: 0.8em;
+      color: #999;
+    }
   </style>
 </head>
 <body>
 
-<h1>Bluetooth Chat</h1>
-<div id="messages">Messages will appear here...</div>
+<h1>Rádio Bluetooth</h1>
 
-<input id="text" type="text" placeholder="Type a message" />
-<button onclick="sendMessage()">Send</button>
-<button onclick="connectBluetooth()">Connect</button>
+<div id="messages">Mensagens aparecerão aqui...</div>
+
+<div id="controls">
+  <input id="text" type="text" placeholder="Escreve a mensagem" autofocus />
+  <button onclick="sendMessage()">Enviar</button>
+  <button onclick="connectBluetooth()">Ligar</button>
+</div>
+
+<small>Atalhos: Enter = Enviar | Ctrl+L = Ligar Bluetooth</small>
 
 <script>
   let bleCharacteristic;
   const messages = document.getElementById('messages');
+  const textInput = document.getElementById('text');
 
   async function connectBluetooth() {
     try {
@@ -36,34 +101,43 @@
       await bleCharacteristic.startNotifications();
       bleCharacteristic.addEventListener('characteristicvaluechanged', handleIncomingMessage);
 
-      logMessage("Connected to " + device.name);
+      logMessage("** Ligado a " + device.name + " **");
     } catch (error) {
-      logMessage("Connection failed: " + error);
+      logMessage("Erro de ligação: " + error);
     }
   }
 
   function sendMessage() {
-    const text = document.getElementById('text').value;
+    const text = textInput.value;
     if (bleCharacteristic && text) {
       const encoder = new TextEncoder();
       bleCharacteristic.writeValue(encoder.encode(text + "\n"));
-      logMessage("You: " + text);
-      document.getElementById('text').value = '';
+      logMessage("TU: " + text);
+      textInput.value = '';
     } else {
-      logMessage("Not connected or empty message.");
+      logMessage("** Não ligado ou mensagem vazia **");
     }
   }
 
   function handleIncomingMessage(event) {
     const decoder = new TextDecoder();
     const message = decoder.decode(event.target.value);
-    logMessage("Device: " + message);
+    logMessage("DISPOSITIVO: " + message);
   }
 
   function logMessage(msg) {
     messages.innerHTML += msg + "<br>";
     messages.scrollTop = messages.scrollHeight;
   }
+
+  // Atalhos de teclado
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' && document.activeElement === textInput) {
+      sendMessage();
+    } else if (event.ctrlKey && event.key.toLowerCase() === 'l') {
+      connectBluetooth();
+    }
+  });
 </script>
 
 </body>
