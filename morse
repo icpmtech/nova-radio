@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <title>SOS Morse Trainer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Reset e estilos básicos */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background: #000;
+      font-family: sans-serif;
+      color: #fff;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      padding-top: 60px;
+      padding-bottom: 40px;
+      overflow: hidden;
+    }/* Header */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 60px;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  z-index: 1000;
+}
+.logo {
+  font-size: 1.5em;
+  color: #ff0055;
+  font-weight: bold;
+}
+.nav-menu ul {
+  list-style: none;
+  display: flex;
+}
+.nav-menu li {
+  margin: 0 10px;
+}
+.nav-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1em;
+  transition: color 0.2s;
+}
+.nav-menu a:hover {
+  color: #ff0055;
+}
+
+/* Container principal */
+.container {
+  flex: 1;
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Tap area */
+.tap-area {
+  background: #ff0055;
+  font-size: 1.5em;
+  padding: 40px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  box-shadow: 0 0 30px #ff0055;
+  animation: pulse 2s infinite;
+  cursor: pointer;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 5px #ff0055; }
+  50% { box-shadow: 0 0 40px #ff0055; }
+}
+
+/* Feedback e textos */
+#currentSentence, #morseCode, #userInput {
+  margin-top: 10px;
+  font-size: 1.1em;
+}
+#morseCode { color: #00ffff; }
+#userInput { color: #ffcc00; }
+#feedback {
+  margin-top: 10px;
+  font-size: 1.2em;
+}
+.correct { color: #00ff88; }
+.wrong { color: #ff0055; }
+
+/* Botão */
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: #fff;
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+button:hover { background: #eee; }
+
+/* Footer */
+.footer {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 40px;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.5);
+  font-size: 0.9em;
+  z-index: 1000;
+}
+
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">SOS Trainer</div>
+    <nav class="nav-menu">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Practice</a></li>
+        <li><a href="#">Scores</a></li>
+      </ul>
+    </nav>
+  </header>  <div class="container">
+    <h1>Treino Morse</h1>
+    <div id="currentSentence">Palavra: SOS</div>
+    <div id="morseCode">Código Morse: ... --- ...</div>
+    <div id="userInput">Tocaste: </div><div class="tap-area" id="tapArea">Tap</div>
+<div id="feedback">Toca o código Morse</div>
+<button onclick="reset()">Reset</button>
+
+  </div>  <footer class="footer">
+    © 2025 SOS Trainer. Todos os direitos reservados.
+  </footer>  <script>
+    const sentences = {
+      "SOS": "...---...",
+      "HELP": "......-...--.",
+      "EMERGENCY": ".--.--.-..-.--.-.--.-.--"
+    };
+
+    const tapArea = document.getElementById('tapArea');
+    const feedback = document.getElementById('feedback');
+    const currentSentenceEl = document.getElementById('currentSentence');
+    const morseCodeEl = document.getElementById('morseCode');
+    const userInputEl = document.getElementById('userInput');
+
+    let selected = "SOS";
+    let target = sentences[selected];
+    let tapSequence = [];
+    let lastTapTime = 0;
+
+    const dotSound = new Audio("https://freesound.org/data/previews/64/64549_634166-lq.mp3");
+    const dashSound = new Audio("https://freesound.org/data/previews/67/67451_634166-lq.mp3");
+
+    function speak(text) {
+      const msg = new SpeechSynthesisUtterance(text);
+      msg.lang = "en-US";
+      window.speechSynthesis.speak(msg);
+    }
+
+    function reset() {
+      tapSequence = [];
+      selected = Object.keys(sentences)[Math.floor(Math.random() * Object.keys(sentences).length)];
+      target = sentences[selected];
+      currentSentenceEl.textContent = "Palavra: " + selected;
+      morseCodeEl.textContent = "Código Morse: " + target;
+      userInputEl.textContent = "Tocaste: ";
+      feedback.textContent = "Toca o código Morse";
+      feedback.className = '';
+    }
+
+    tapArea.addEventListener('mousedown', () => { lastTapTime = Date.now(); });
+    tapArea.addEventListener('mouseup', () => {
+      const duration = Date.now() - lastTapTime;
+      const symbol = duration < 200 ? '.' : '-';
+      tapSequence.push(symbol);
+      userInputEl.textContent = "Tocaste: " + tapSequence.join('');
+      if (symbol === '.') { dotSound.currentTime = 0; dotSound.play(); }
+      else { dashSound.currentTime = 0; dashSound.play(); }
+      if (tapSequence.join('').length >= target.length) checkSequence();
+    });
+
+    function checkSequence() {
+      if (tapSequence.join('') === target) {
+        feedback.textContent = "CÓDIGO CORRETO!";
+        feedback.className = 'correct';
+        speak(`${selected} enviado!`);
+      } else {
+        feedback.textContent = "Errado! Tenta outra vez.";
+        feedback.className = 'wrong';
+        speak("Erro na sequência.");
+      }
+    }
+
+    // Iniciar app
+    reset();
+  </script></body>
+</html>
