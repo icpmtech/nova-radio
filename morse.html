@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="pt-PT">
+<!DOCTYPE html>
+<html lang="pt-PT">
 <head>
   <meta charset="UTF-8">
   <title>Morse Trainer</title>
@@ -6,52 +7,59 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; background: #000; font-family: sans-serif; color: #fff; }
-    body { display: flex; flex-direction: column; padding-top: 60px; padding-bottom: 50px; overflow: hidden; }
-    .header { position: fixed; top: 0; left: 0; right: 0; height: 60px; background: #111; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.5); z-index: 1000; }
+    body { display: flex; flex-direction: column; padding-top: 60px; padding-bottom: 70px; overflow: hidden; }
+
+    /* Header */
+    .header { position: fixed; top: 0; left: 0; right: 0; height: 60px; background: #111;
+      display: flex; align-items: center; justify-content: space-between; padding: 0 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5); z-index: 1000; }
     .logo { font-size: 1.5em; color: #ff0055; font-weight: bold; }
     .nav-menu ul { list-style: none; display: flex; gap: 15px; }
     .nav-menu a { color: #fff; text-decoration: none; font-size: 1em; transition: color 0.2s; cursor: pointer; }
     .nav-menu a:hover { color: #ff0055; }
     #langSelect { background: transparent; color: #fff; border: none; font-size: 1em; cursor: pointer; }
-    .container { flex: 1; text-align: center; max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; padding: 0 20px; }
+
+    /* Container */
+    .container { flex: 1; text-align: center; max-width: 500px; margin: 0 auto;
+      display: flex; flex-direction: column; justify-content: center; padding: 0 20px; }
+
+    /* Tap area */
     .tap-area {
-      background: #ff0055;
-      font-size: 2.5em;
-      padding: 40px;
-      border-radius: 50%;
-      border: 4px solid #fff;
-      width: 200px;
-      height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 20px auto;
-      box-shadow: 0 0 30px #ff0055;
-      animation: pulse 2s infinite;
-      cursor: pointer;
-      transition: transform 0.1s ease, box-shadow 0.1s ease;
-      touch-action: none;
-      user-select: none;
+      background: #ff0055; font-size: 2.5em; padding: 40px; border-radius: 50%;
+      border: 4px solid #fff; width: 200px; height: 200px; display: flex;
+      align-items: center; justify-content: center; margin: 20px auto;
+      box-shadow: 0 0 30px #ff0055; animation: pulse 2s infinite; cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease; touch-action: none; user-select: none;
     }
-    .tap-area:active {
-      transform: scale(0.9);
-      box-shadow: 0 0 10px #ff0055;
-    }
+    .tap-area:active { transform: scale(0.9); box-shadow: 0 0 10px #ff0055; }
     @keyframes pulse { 0%,100% { box-shadow: 0 0 5px #ff0055; } 50% { box-shadow: 0 0 40px #ff0055; } }
-    #currentSentence, #morseCode, #userInput { margin-top: 10px; font-size: 1.1em; }
+
+    /* Displays */
+    #currentSentence, #morseCode, #userInput { margin-top: 10px; font-size: 1.1em; word-break: break-all; }
     #morseCode { color: #00ffff; }
     #userInput { color: #ffcc00; }
     #feedback { margin-top: 10px; font-size: 1.2em; }
     .correct { color: #00ff88; }
     .wrong { color: #ff0055; }
-    button { margin-top: 15px; padding: 10px 20px; background: #fff; color: #000; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+
+    /* Buttons row */
+    .buttons-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 15px; }
+    .buttons-row button { flex: 1 1 auto; max-width: 120px; }
+    button { padding: 10px; background: #fff; color: #000; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
     button:hover { background: #eee; }
-    .footer { position: fixed; bottom: 0; left: 0; right: 0; height: 40px; background: #111; display: flex; align-items: center; justify-content: center; box-shadow: 0 -2px 5px rgba(0,0,0,0.5); font-size: 0.9em; }
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 2000; }
+
+    /* Footer */
+    .footer { position: fixed; bottom: 0; left: 0; right: 0; height: 40px; background: #111;
+      display: flex; align-items: center; justify-content: center; box-shadow: 0 -2px 5px rgba(0,0,0,0.5); font-size: 0.9em; }
+
+    /* Help Modal */
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 2000; }
     .modal-content { background: #222; padding: 20px; border-radius: 8px; max-width: 90%; text-align: left; }
     .modal-content h2 { margin-bottom: 10px; color: #ff0055; }
     .modal-content p { margin: 5px 0; }
     .close-btn { margin-top: 15px; padding: 8px 16px; background: #ff0055; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+
     @media (max-width: 600px) {
       .header { height: 50px; padding: 0 10px; }
       .logo { font-size: 1.2em; }
@@ -76,72 +84,245 @@
       <option value="pt">PT</option>
       <option value="en">EN</option>
     </select>
-  </header>  <div class="container">
+  </header>
+
+  <div class="container">
     <h1 id="title"></h1>
     <div id="currentSentence"></div>
     <div id="morseCode"></div>
-    <div id="userInput"></div><div class="tap-area" id="tapArea">👆</div>
-<div id="feedback"></div>
-<button id="resetBtn"></button>
+    <div id="userInput"></div>
 
-  </div>  <div class="modal" id="helpModal">
+    <div class="tap-area" id="tapArea">👆</div>
+    <div id="feedback"></div>
+
+    <div class="buttons-row">
+      <button id="resetBtn"></button>
+      <button id="exportBtn"></button>
+      <button id="importBtn"></button>
+      <button id="spaceBtn">␣</button>
+      <input type="file" id="importFile" accept="application/json" style="display:none">
+    </div>
+  </div>
+
+  <div class="modal" id="helpModal">
     <div class="modal-content">
       <h2>Como fazer os taps</h2>
       <p><strong>Tap curto (&lt; 300ms)</strong> representa um <em>ponto (.)</em>.</p>
       <p><strong>Tap longo (&ge; 300ms)</strong> representa um <em>traço (-)</em>.</p>
-      <p>Tenta reproduzir a sequência que vês em ecrã.</p>
+      <p><strong>Space (␣)</strong> insere um separador de palavra (`/`).</p>
       <button class="close-btn" id="closeHelp">Fechar</button>
     </div>
-  </div>  <footer class="footer" id="footerText"></footer>  <script>
-    const translations = {
-      pt: { logo:'SOS Trainer', home:'Início', practice:'Prática', scores:'Pontuações', help:'Ajuda', title:'Treino Morse', word:'Palavra', morseCode:'Código Morse', tapped:'Tocaste', feedbackTap:'Toca o código Morse', correct:'CÓDIGO CORRETO!', wrong:'Errado! Tenta outra vez.', reset:'Reiniciar', footer:'© 2025 SOS Trainer. Todos os direitos reservados.' },
-      en: { logo:'SOS Trainer', home:'Home', practice:'Practice', scores:'Scores', help:'Help', title:'Morse Training', word:'Word', morseCode:'Morse Code', tapped:'Tapped', feedbackTap:'Tap the Morse code', correct:'CORRECT CODE!', wrong:'Wrong! Try again.', reset:'Reset', footer:'© 2025 SOS Trainer. All rights reserved.' }
+  </div>
+
+  <footer class="footer" id="footerText"></footer>
+
+  <script>
+    // Mapeamento Morse
+    const morseMap = {
+      A:'.-',B:'-...',C:'-.-.',D:'-..',E:'.',F:'..-.',G:'--.',H:'....',I:'..',J:'.---',
+      K:'-.-',L:'.-..',M:'--',N:'-.',O:'---',P:'.--.',Q:'--.-',R:'.-.',S:'...',T:'-',
+      U:'..-',V:'...-',W:'.--',X:'-..-',Y:'-.--',Z:'--..',
+      '0':'-----','1':'.----','2':'..---','3':'...--','4':'....-','5':'.....',
+      '6':'-....','7':'--...','8':'---..','9':'----.'
     };
-    const sentences = { SOS:'...---...', HELP:'......-...--.', EMERGENCY:'.--.--.-..-.--.-.--.-.--' };
-    // Elements
-    const langSelect  = document.getElementById('langSelect'),
-          logoText    = document.getElementById('logoText'),
-          navHome     = document.getElementById('navHome'),
-          navPractice = document.getElementById('navPractice'),
-          navScores   = document.getElementById('navScores'),
-          navHelp     = document.getElementById('navHelp'),
-          titleEl     = document.getElementById('title'),
-          currentEl   = document.getElementById('currentSentence'),
-          codeEl      = document.getElementById('morseCode'),
-          userEl      = document.getElementById('userInput'),
-          tapArea     = document.getElementById('tapArea'),
-          feedbackEl  = document.getElementById('feedback'),
-          resetBtn    = document.getElementById('resetBtn'),
-          footerText  = document.getElementById('footerText'),
-          helpModal   = document.getElementById('helpModal'),
-          closeHelp   = document.getElementById('closeHelp');
-    let lang='pt', selected='', target='', taps=[], lastTime=0;
-    lang = localStorage.getItem('lang') || lang;
+
+    // Palavras de treino
+    const words = [
+      'SOS',
+      'HELP',
+      'EMERGENCY',
+      'HELLO WORLD',
+      'MORSE CODE',
+      'TEST 123',
+      'RADIO',
+      'NIGHT',
+      'ALOHA',
+      'PEACE'
+    ];
+
+    // Traduções
+    const translations = {
+      pt: {
+        logo:'SOS Trainer', home:'Início', practice:'Prática', scores:'Pontuações', help:'Ajuda',
+        title:'Treino Morse', word:'Palavra', morseCode:'Código Morse', tapped:'Tocaste',
+        feedbackTap:'Toca o código Morse', correct:'CÓDIGO CORRETO!', wrong:'Errado! Tenta outra vez.',
+        reset:'Reiniciar', export:'Exportar', import:'Importar', footer:'© 2025 SOS Trainer. Todos os direitos reservados.'
+      },
+      en: {
+        logo:'SOS Trainer', home:'Home', practice:'Practice', scores:'Scores', help:'Help',
+        title:'Morse Training', word:'Word', morseCode:'Morse Code', tapped:'Tapped',
+        feedbackTap:'Tap the Morse code', correct:'CORRECT CODE!', wrong:'Wrong! Try again.',
+        reset:'Reset', export:'Export', import:'Import', footer:'© 2025 SOS Trainer. All rights reserved.'
+      }
+    };
+
+    // Elementos
+    const langSelect = document.getElementById('langSelect'),
+          logoText   = document.getElementById('logoText'),
+          navHome    = document.getElementById('navHome'),
+          navPractice= document.getElementById('navPractice'),
+          navScores  = document.getElementById('navScores'),
+          navHelp    = document.getElementById('navHelp'),
+          titleEl    = document.getElementById('title'),
+          currentEl  = document.getElementById('currentSentence'),
+          codeEl     = document.getElementById('morseCode'),
+          userEl     = document.getElementById('userInput'),
+          tapArea    = document.getElementById('tapArea'),
+          feedbackEl = document.getElementById('feedback'),
+          resetBtn   = document.getElementById('resetBtn'),
+          exportBtn  = document.getElementById('exportBtn'),
+          importBtn  = document.getElementById('importBtn'),
+          spaceBtn   = document.getElementById('spaceBtn'),
+          importFile = document.getElementById('importFile'),
+          footerText = document.getElementById('footerText'),
+          helpModal  = document.getElementById('helpModal'),
+          closeHelp  = document.getElementById('closeHelp');
+
+    // Estado
+    let lang      = localStorage.getItem('lang') || 'pt',
+        selected  = '',
+        target    = '',
+        taps      = [],
+        lastTime  = 0;
+
+    // Sons
     const dotSound  = new Audio('https://freesound.org/data/previews/64/64549_634166-lq.mp3'),
           dashSound = new Audio('https://freesound.org/data/previews/67/67451_634166-lq.mp3'),
           tapSound  = new Audio('https://freesound.org/data/previews/146/146725_2615111-lq.mp3');
-    function speak(txt){ const u=new SpeechSynthesisUtterance(txt); u.lang = lang==='pt'?'pt-PT':'en-US'; speechSynthesis.speak(u); }
-    function translateUI(){ const t=translations[lang]; logoText.textContent=t.logo; navHome.textContent=t.home; navPractice.textContent=t.practice; navScores.textContent=t.scores; navHelp.textContent=t.help; titleEl.textContent=t.title; footerText.textContent=t.footer; resetBtn.textContent=t.reset; langSelect.value=lang; }
-    function updateUI(){ const t=translations[lang]; currentEl.textContent=`${t.word}: ${selected}`; codeEl.textContent=`${t.morseCode}: ${target}`; userEl.textContent=`${t.tapped}: `; }
-    function reset(){ taps=[]; const keys=Object.keys(sentences); selected=keys[Math.floor(Math.random()*keys.length)]; target=sentences[selected]; updateUI(); feedbackEl.textContent=translations[lang].feedbackTap; feedbackEl.className=''; }
-    function check(){ if(taps.join('')===target){ feedbackEl.textContent=translations[lang].correct; feedbackEl.className='correct'; speak(selected + (lang==='pt'?' enviado!':' sent!')); } else { feedbackEl.textContent=translations[lang].wrong; feedbackEl.className='wrong'; speak(translations[lang].wrong); } }
-    translateUI(); reset();
-    langSelect.onchange = ()=>{ lang=langSelect.value; localStorage.setItem('lang',lang); translateUI(); reset(); };
-    // Mouse events
-    tapArea.onmousedown = ()=>{ tapSound.currentTime=0; tapSound.play(); lastTime = Date.now(); };
-    tapArea.onmouseup   = ()=>{ handleTapEnd(); };
-    // Touch events
-    tapArea.addEventListener('touchstart', e=>{ e.preventDefault(); tapSound.currentTime=0; tapSound.play(); lastTime = Date.now(); });
-    tapArea.addEventListener('touchend', e=>{ e.preventDefault(); handleTapEnd(); });
-    function handleTapEnd(){ const duration = Date.now() - lastTime;
-      const symbol = duration < 300 ? '.' : '-';
+
+    // Fala
+    function speak(text) {
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = lang === 'pt' ? 'pt-PT' : 'en-US';
+      speechSynthesis.speak(u);
+    }
+
+    // Traduz UI
+    function translateUI() {
+      const t = translations[lang];
+      logoText.textContent    = t.logo;
+      navHome.textContent     = t.home;
+      navPractice.textContent = t.practice;
+      navScores.textContent   = t.scores;
+      navHelp.textContent     = t.help;
+      titleEl.textContent     = t.title;
+      resetBtn.textContent    = t.reset;
+      exportBtn.textContent   = t.export;
+      importBtn.textContent   = t.import;
+      footerText.textContent  = t.footer;
+      langSelect.value        = lang;
+    }
+
+    // Converte palavra para Morse (com espaços)
+    function toMorse(word) {
+      return word
+        .toUpperCase()
+        .split('')
+        .map(ch => ch === ' ' ? '/' : (morseMap[ch] || ''))
+        .join(' ');
+    }
+
+    // Atualiza mostradores
+    function updateUI() {
+      const t = translations[lang];
+      currentEl.textContent = `${t.word}: ${selected}`;
+      codeEl.textContent    = `${t.morseCode}: ${toMorse(selected)}`;
+      userEl.textContent    = `${t.tapped}: `;
+    }
+
+    // Recomeça o treino
+    function reset() {
+      taps = [];
+      selected = words[Math.floor(Math.random() * words.length)];
+      // Remove barras e espaços para comparação interna
+      target = toMorse(selected).replace(/ /g, '').replace(/\//g, '');
+      updateUI();
+      feedbackEl.textContent = translations[lang].feedbackTap;
+      feedbackEl.className   = '';
+    }
+
+    // Verifica sequência do utilizador
+    function check() {
+      if (taps.join('') === target) {
+        feedbackEl.textContent = translations[lang].correct;
+        feedbackEl.className   = 'correct';
+        speak(selected + (lang === 'pt' ? ' enviado!' : ' sent!'));
+      } else {
+        feedbackEl.textContent = translations[lang].wrong;
+        feedbackEl.className   = 'wrong';
+        speak(translations[lang].wrong);
+      }
+    }
+
+    // Exporta lista de palavras para JSON
+    exportBtn.onclick = () => {
+      const data = JSON.stringify(words, null, 2);
+      const blob = new Blob([data], { type: 'application/json' });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href     = url;
+      a.download = 'words.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    };
+
+    // Importa JSON de palavras
+    importBtn.onclick = () => importFile.click();
+    importFile.onchange = e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        try {
+          const arr = JSON.parse(ev.target.result);
+          if (Array.isArray(arr)) {
+            words.splice(0, words.length, ...arr);
+            alert((lang === 'pt' ? 'Palavras importadas: ' : 'Imported: ') + words.length);
+            reset();
+          } else throw 'not array';
+        } catch {
+          alert(lang === 'pt' ? 'Ficheiro inválido' : 'Invalid file');
+        }
+      };
+      reader.readAsText(file);
+      e.target.value = '';
+    };
+
+    // Space button: adiciona separador de palavra
+    spaceBtn.onclick = () => {
+      taps.push('/');
+      userEl.textContent = `${translations[lang].tapped}: ${taps.join('')}`;
+    };
+
+    // Eventos de tap
+    tapArea.addEventListener('mousedown', () => { tapSound.currentTime = 0; tapSound.play(); lastTime = Date.now(); });
+    tapArea.addEventListener('mouseup',    () => handleEnd());
+    tapArea.addEventListener('touchstart', e => { e.preventDefault(); tapSound.currentTime = 0; tapSound.play(); lastTime = Date.now(); });
+    tapArea.addEventListener('touchend',   e => { e.preventDefault(); handleEnd(); });
+
+    function handleEnd() {
+      const duration = Date.now() - lastTime;
+      const symbol   = duration < 300 ? '.' : '-';
       taps.push(symbol);
       userEl.textContent = `${translations[lang].tapped}: ${taps.join('')}`;
-      (symbol==='.' ? dotSound : dashSound).play();
-      if(taps.length >= target.length) check();
+      (symbol === '.' ? dotSound : dashSound).play();
+      if (taps.length >= target.length) check();
     }
-    resetBtn.onclick = reset;
-    navHelp.onclick  = ()=>{ helpModal.style.display='flex'; };
-    closeHelp.onclick= ()=>{ helpModal.style.display='none'; };
-  </script></body>
+
+    // Outros eventos
+    langSelect.onchange = () => {
+      lang = langSelect.value;
+      localStorage.setItem('lang', lang);
+      translateUI();
+      reset();
+    };
+    resetBtn.onclick  = reset;
+    navHelp.onclick   = () => helpModal.style.display = 'flex';
+    closeHelp.onclick = () => helpModal.style.display = 'none';
+
+    // Inicialização
+    translateUI();
+    reset();
+  </script>
+</body>
 </html>
