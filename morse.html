@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <title>Morse Trainer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; background: #000; font-family: sans-serif; color: #fff; }
+    body { display: flex; flex-direction: column; padding-top: 60px; padding-bottom: 50px; overflow: hidden; }/* Header */
+.header { position: fixed; top: 0; left: 0; right: 0; height: 60px; background: #111; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.5); z-index: 1000; }
+.logo { font-size: 1.5em; color: #ff0055; font-weight: bold; }
+.nav-menu ul { list-style: none; display: flex; gap: 15px; }
+.nav-menu a { color: #fff; text-decoration: none; font-size: 1em; transition: color 0.2s; cursor: pointer; }
+.nav-menu a:hover { color: #ff0055; }
+#langSelect { background: transparent; color: #fff; border: none; font-size: 1em; cursor: pointer; }
+
+/* Container */
+.container { flex: 1; text-align: center; max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; padding: 0 20px; }
+
+/* Tap area improvements */
+.tap-area {
+  background: #ff0055;
+  font-size: 2.5em;
+  padding: 40px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  box-shadow: 0 0 30px #ff0055;
+  animation: pulse 2s infinite;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  position: relative;
+  overflow: hidden;
+}
+.tap-area:active {
+  transform: scale(0.9);
+  box-shadow: 0 0 10px #ff0055;
+}
+@keyframes pulse { 0%,100% { box-shadow: 0 0 5px #ff0055; } 50% { box-shadow: 0 0 40px #ff0055; } }
+
+/* Text displays */
+#currentSentence, #morseCode, #userInput { margin-top: 10px; font-size: 1.1em; }
+#morseCode { color: #00ffff; }
+#userInput { color: #ffcc00; }
+#feedback { margin-top: 10px; font-size: 1.2em; }
+.correct { color: #00ff88; }
+.wrong { color: #ff0055; }
+
+/* Buttons */
+button { margin-top: 15px; padding: 10px 20px; background: #fff; color: #000; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+button:hover { background: #eee; }
+
+/* Footer */
+.footer { position: fixed; bottom: 0; left: 0; right: 0; height: 40px; background: #111; display: flex; align-items: center; justify-content: center; box-shadow: 0 -2px 5px rgba(0,0,0,0.5); font-size: 0.9em; }
+
+/* Help Modal */
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 2000; }
+.modal-content { background: #222; padding: 20px; border-radius: 8px; max-width: 90%; text-align: left; }
+.modal-content h2 { margin-bottom: 10px; color: #ff0055; }
+.modal-content p { margin: 5px 0; }
+.close-btn { margin-top: 15px; padding: 8px 16px; background: #ff0055; color: #fff; border: none; border-radius: 5px; cursor: pointer; }
+
+/* Mobile-first */
+@media (max-width: 600px) {
+  .header { height: 50px; padding: 0 10px; }
+  .logo { font-size: 1.2em; }
+  .nav-menu a { font-size: 0.9em; }
+  .container { padding: 0 10px; }
+  .tap-area { width: 150px; height: 150px; padding: 30px; font-size: 2em; }
+}
+
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo" id="logoText"></div>
+    <nav class="nav-menu">
+      <ul>
+        <li><a id="navHome"></a></li>
+        <li><a id="navPractice"></a></li>
+        <li><a id="navScores"></a></li>
+        <li><a id="navHelp"></a></li>
+      </ul>
+    </nav>
+    <select id="langSelect">
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+  </header>  <div class="container">
+    <h1 id="title"></h1>
+    <div id="currentSentence"></div>
+    <div id="morseCode"></div>
+    <div id="userInput"></div><div class="tap-area" id="tapArea">👆</div>
+<div id="feedback"></div>
+<button id="resetBtn"></button>
+
+  </div>  <div class="modal" id="helpModal">
+    <div class="modal-content">
+      <h2>Como fazer os taps</h2>
+      <p><strong>Tap curto (&lt; 200ms)</strong> representa um <em>ponto (.)</em>.</p>
+      <p><strong>Tap longo (&ge; 200ms)</strong> representa um <em>traço (-)</em>.</p>
+      <p>Tenta reproduzir a sequência que vês em ecrã.</p>
+      <button class="close-btn" id="closeHelp">Fechar</button>
+    </div>
+  </div>  <footer class="footer" id="footerText"></footer>  <script>
+    const translations = {
+      pt: { logo:'SOS Trainer', home:'Início', practice:'Prática', scores:'Pontuações', help:'Ajuda', title:'Treino Morse', word:'Palavra', morseCode:'Código Morse', tapped:'Tocaste', feedbackTap:'Toca o código Morse', correct:'CÓDIGO CORRETO!', wrong:'Errado! Tenta outra vez.', reset:'Reiniciar', footer:'© 2025 SOS Trainer. Todos os direitos reservados.' },
+      en: { logo:'SOS Trainer', home:'Home', practice:'Practice', scores:'Scores', help:'Help', title:'Morse Training', word:'Word', morseCode:'Morse Code', tapped:'Tapped', feedbackTap:'Tap the Morse code', correct:'CORRECT CODE!', wrong:'Wrong! Try again.', reset:'Reset', footer:'© 2025 SOS Trainer. All rights reserved.' }
+    };
+    const sentences = { SOS:'...---...', HELP:'......-...--.', EMERGENCY:'.--.--.-..-.--.-.--.-.--' };
+
+    // Elements
+    const langSelect = document.getElementById('langSelect'),
+          logoText   = document.getElementById('logoText'),
+          navHome    = document.getElementById('navHome'),
+          navPractice= document.getElementById('navPractice'),
+          navScores  = document.getElementById('navScores'),
+          navHelp    = document.getElementById('navHelp'),
+          titleEl    = document.getElementById('title'),
+          currentEl  = document.getElementById('currentSentence'),
+          codeEl     = document.getElementById('morseCode'),
+          userEl     = document.getElementById('userInput'),
+          tapArea    = document.getElementById('tapArea'),
+          feedbackEl = document.getElementById('feedback'),
+          resetBtn   = document.getElementById('resetBtn'),
+          footerText = document.getElementById('footerText'),
+          helpModal  = document.getElementById('helpModal'),
+          closeHelp  = document.getElementById('closeHelp');
+
+    let lang        = localStorage.getItem('lang') || 'pt', selected='', target='', taps=[], lastTime=0;
+    // Sounds
+    const dotSound  = new Audio('https://freesound.org/data/previews/64/64549_634166-lq.mp3');
+    const dashSound = new Audio('https://freesound.org/data/previews/67/67451_634166-lq.mp3');
+
+    function speak(txt){ const u=new SpeechSynthesisUtterance(txt); u.lang = lang==='pt'?'pt-PT':'en-US'; speechSynthesis.speak(u); }
+    function translateUI(){ const t=translations[lang]; logoText.textContent=t.logo; navHome.textContent=t.home; navPractice.textContent=t.practice; navScores.textContent=t.scores; navHelp.textContent=t.help; titleEl.textContent=t.title; footerText.textContent=t.footer; resetBtn.textContent=t.reset; langSelect.value=lang; }
+    function updateUI(){ const t=translations[lang]; currentEl.textContent=`${t.word}: ${selected}`; codeEl.textContent=`${t.morseCode}: ${target}`; userEl.textContent=`${t.tapped}: `; }
+    function reset(){ taps=[]; const keys=Object.keys(sentences); selected=keys[Math.floor(Math.random()*keys.length)]; target=sentences[selected]; updateUI(); feedbackEl.textContent=translations[lang].feedbackTap; feedbackEl.className=''; }
+    function check(){ if(taps.join('')===target){ feedbackEl.textContent=translations[lang].correct; feedbackEl.className='correct'; speak(selected + (lang==='pt'?' enviado!':' sent!')); } else { feedbackEl.textContent=translations[lang].wrong; feedbackEl.className='wrong'; speak(translations[lang].wrong); } }
+    // Init
+    translateUI(); reset();
+    // Events
+    langSelect.onchange=()=>{ lang=langSelect.value; localStorage.setItem('lang',lang); translateUI(); reset(); };
+    tapArea.onmousedown=()=>{ lastTime=Date.now(); };
+    tapArea.onmouseup=()=>{ const d=Date.now()-lastTime; const s=d<200?'.':'-'; taps.push(s); userEl.textContent=`${translations[lang].tapped}: ${taps.join('')}`; (s==='.'?dotSound:dashSound).play(); if(taps.length>=target.length) check(); };
+    resetBtn.onclick=reset;
+    navHelp.onclick=()=>{ helpModal.style.display='flex'; };
+    closeHelp.onclick=()=>{ helpModal.style.display='none'; };
+  </script></body>
+</html>
