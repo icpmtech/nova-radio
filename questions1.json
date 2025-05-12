@@ -244,6 +244,131 @@
     "question": "Quantas vezes por hora é recomendada a identificação da estação?",
     "options": ["1", "2", "3", "4"],
     "answer": "1"
+  },
+  {
+    "question": "Que equipamento mede a ROE (SWR)?",
+    "options": ["Multímetro", "Amperímetro", "Analisador de antenas", "Transformador"],
+    "answer": "Analisador de antenas"
+  },
+  {
+    "question": "O que é um transceptor?",
+    "options": ["Antena", "Dispositivo de receção", "Equipamento que transmite e recebe", "Filtro de sinal"],
+    "answer": "Equipamento que transmite e recebe"
+  },
+  {
+    "question": "O que significa QRM no código Q?",
+    "options": ["Estação móvel", "Interferência de outra estação", "Mensagem recebida", "Erro no sinal"],
+    "answer": "Interferência de outra estação"
+  },
+  {
+    "question": "Qual a unidade usada para expressar ganho de antena?",
+    "options": ["Hz", "dB", "W", "V"],
+    "answer": "dB"
+  },
+  {
+    "question": "O que é uma antena direcional?",
+    "options": ["Emite sinal em todas as direções", "Emite sinal numa direção específica", "Reduz o sinal recebido", "Converte sinais digitais"],
+    "answer": "Emite sinal numa direção específica"
+  },
+  {
+    "question": "Para que serve o código QSL?",
+    "options": ["Pedir localização", "Confirmar contacto", "Solicitar assistência", "Transmitir potência"],
+    "answer": "Confirmar contacto"
+  },
+  {
+    "question": "Em qual destas bandas é comum usar CW?",
+    "options": ["2 metros", "20 metros", "70 cm", "PMR"],
+    "answer": "20 metros"
+  },
+  {
+    "question": "Qual é o objetivo principal do código fonético ICAO?",
+    "options": ["Fazer piadas no rádio", "Disfarçar conteúdo", "Evitar erros de comunicação", "Sinalizar emergência"],
+    "answer": "Evitar erros de comunicação"
+  },
+  {
+    "question": "Que valor de SWR é considerado ideal?",
+    "options": ["2:1", "3:1", "1.5:1", "1:1"],
+    "answer": "1:1"
+  },
+  {
+    "question": "É necessário registar comunicações em modo digital?",
+    "options": ["Não", "Sim, obrigatoriamente", "Sim, se solicitado pela ANACOM", "Apenas se forem internacionais"],
+    "answer": "Sim, se solicitado pela ANACOM"
+  },
+  {
+    "question": "O que significa QRZ?",
+    "options": ["Está a interferir?", "Quem me chamou?", "Sinal fraco", "Confirma receção"],
+    "answer": "Quem me chamou?"
+  },
+  {
+    "question": "Quantos metros corresponde à frequência de 3.5 MHz?",
+    "options": ["80 metros", "40 metros", "160 metros", "20 metros"],
+    "answer": "80 metros"
+  },
+  {
+    "question": "Qual é o comprimento de onda de 144 MHz?",
+    "options": ["2 metros", "10 metros", "20 metros", "70 cm"],
+    "answer": "2 metros"
+  },
+  {
+    "question": "Qual destas frequências pertence à banda de 15 metros?",
+    "options": ["21.200 MHz", "14.300 MHz", "28.400 MHz", "7.100 MHz"],
+    "answer": "21.200 MHz"
+  },
+  {
+    "question": "O que significa a sigla IARU?",
+    "options": ["Instituto Amador Rádio Universal", "International Amateur Radio Union", "Instituição de Apoio a Rádio Utilitário", "Interference Avoidance and Regulation Unit"],
+    "answer": "International Amateur Radio Union"
+  },
+  {
+    "question": "Em que circunstância é permitido ultrapassar a potência máxima autorizada?",
+    "options": ["Se o equipamento o permitir", "Em eventos públicos", "Nunca", "Em emergências de proteção civil"],
+    "answer": "Em emergências de proteção civil"
+  },
+  {
+    "question": "Qual é o uso de uma balun em antenas?",
+    "options": ["Potenciar o sinal", "Evitar retorno de corrente", "Substituir o coaxial", "Filtrar frequências"],
+    "answer": "Evitar retorno de corrente"
+  },
+  {
+    "question": "O que significa QRX?",
+    "options": ["Aguarde um momento", "Localização", "Mensagem repetida", "Frequência errada"],
+    "answer": "Aguarde um momento"
+  },
+  {
+    "question": "Qual é o significado de QRP?",
+    "options": ["Alta potência", "Sinal fraco", "Potência reduzida", "Pronto para transmitir"],
+    "answer": "Potência reduzida"
+  },
+  {
+    "question": "Quando é preferível usar uma antena vertical?",
+    "options": ["Em veículos", "Apenas em estações base", "Nunca", "Somente para receção"],
+    "answer": "Em veículos"
+  },
+  {
+    "question": "Qual é a função de um filtro passa-baixo?",
+    "options": ["Eliminar ruído de alta frequência", "Aumentar frequência", "Reduzir potência", "Isolar antena"],
+    "answer": "Eliminar ruído de alta frequência"
+  },
+  {
+    "question": "É obrigatório utilizar equipamentos homologados pela ANACOM?",
+    "options": ["Sim", "Não", "Apenas se forem importados", "Só acima de 50 W"],
+    "answer": "Sim"
+  },
+  {
+    "question": "Que tipo de antena emite em todas as direções horizontais?",
+    "options": ["Yagi", "Dipolo", "Vertical", "Omnidirecional"],
+    "answer": "Omnidirecional"
+  },
+  {
+    "question": "Qual destas não é uma responsabilidade do radioamador?",
+    "options": ["Evitar interferências", "Fornecer assistência legal", "Identificar transmissões", "Manter registos"],
+    "answer": "Fornecer assistência legal"
+  },
+  {
+    "question": "Qual o código Q para "mudando de frequência"?",
+    "options": ["QSY", "QRX", "QTH", "QRL"],
+    "answer": "QSY"
   }
 
 ]
