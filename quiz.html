@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Radioamador Categoria 3</title>
+  <style>
+    body { font-family: sans-serif; background: #111; color: #fff; padding: 20px; }
+    h1 { color: #0f0; }
+    .question { margin-bottom: 20px; }
+    .result { margin-top: 20px; font-weight: bold; }
+    .correct { color: lime; }
+    .incorrect { color: red; }
+    button { padding: 10px; background: #0f0; color: #000; border: none; margin-top: 10px; cursor: pointer; }
+    input[type="radio"] { margin-right: 5px; }
+    .feedback { margin-top: 5px; font-style: italic; }
+  </style>
+</head>
+<body>
+  <h1>Quiz Radioamador - Categoria 3</h1>
+  <div id="quiz-container"></div>
+  <div class="result" id="result"></div>
+  <div id="feedback-container"></div>
+
+  <script>
+    let questions = [];
+    // Carregar perguntas e respostas a partir de questions.json
+    fetch('questions.json')
+      .then(response => response.json())
+      .then(data => {
+        questions = data;
+        renderQuiz();
+      })
+      .catch(err => {
+        console.error('Erro ao carregar questions.json:', err);
+      });
+
+    const quizContainer = document.getElementById("quiz-container");
+    const resultContainer = document.getElementById("result");
+    const feedbackContainer = document.getElementById("feedback-container");
+
+    function renderQuiz() {
+      quizContainer.innerHTML = '';
+      questions.forEach((q, index) => {
+        const div = document.createElement("div");
+        div.className = "question";
+
+        const title = document.createElement("p");
+        title.textContent = `${index + 1}. ${q.question}`;
+        div.appendChild(title);
+
+        q.options.forEach(option => {
+          const label = document.createElement("label");
+          const input = document.createElement("input");
+          input.type = "radio";
+          input.name = `question${index}`;
+          input.value = option;
+          label.appendChild(input);
+          label.append(option);
+          div.appendChild(label);
+          div.appendChild(document.createElement("br"));
+        });
+
+        quizContainer.appendChild(div);
+      });
+
+      const submitBtn = document.createElement("button");
+      submitBtn.textContent = "Submeter Respostas";
+      submitBtn.onclick = evaluateQuiz;
+      quizContainer.appendChild(submitBtn);
+    }
+
+    function evaluateQuiz() {
+      let score = 0;
+      feedbackContainer.innerHTML = "";
+
+      questions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="question${index}"]:checked`);
+        const feedback = document.createElement("p");
+        feedback.className = "feedback";
+
+        if (selected && selected.value === q.answer) {
+          score++;
+          feedback.classList.add("correct");
+          feedback.textContent = `${index + 1}. Correto: ${q.answer}`;
+        } else {
+          feedback.classList.add("incorrect");
+          const respostaDada = selected ? selected.value : "(sem resposta)";
+          feedback.textContent = `${index + 1}. Errado. A tua resposta: "${respostaDada}" | Correta: "${q.answer}"`;
+        }
+        feedbackContainer.appendChild(feedback);
+      });
+
+      resultContainer.innerHTML = `Acertaste ${score} em ${questions.length} perguntas.`;
+      resultContainer.className = "result" + (score === questions.length ? " correct" : " incorrect");
+    }
+  </script>
+</body>
+</html>
