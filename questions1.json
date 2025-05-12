@@ -1,1 +1,249 @@
 
+[
+  {
+    "question": "Qual é a potência máxima permitida para a Classe 3 nas bandas HF?",
+    "options": ["10 W", "50 W", "100 W PEP", "500 W"],
+    "answer": "100 W PEP"
+  },
+  {
+    "question": "Que identificativo deve ser usado por uma estação de amador portuguesa?",
+    "options": ["CT1XYZ", "PT0ABC", "CT1ABC", "PT1XYZ"],
+    "answer": "CT1ABC"
+  },
+  {
+    "question": "Que frequência é atribuída como canal de chamada em VHF?",
+    "options": ["144.000 MHz", "145.500 MHz", "146.520 MHz", "147.000 MHz"],
+    "answer": "145.500 MHz"
+  },
+  {
+    "question": "É permitido transmitir música numa estação de amador?",
+    "options": ["Sim, sempre", "Sim, se for educativa", "Não", "Sim, com autorização"],
+    "answer": "Não"
+  },
+  {
+    "question": "O que significa PEP?",
+    "options": ["Potência Efetiva de Pico", "Potência de Enlace de Pico", "Potência Estimada de Pico", "Potência Equivalente de Pico"],
+    "answer": "Potência de Enlace de Pico"
+  },
+  {
+    "question": "Em que banda se encontra 14.070 MHz?",
+    "options": ["80 metros", "40 metros", "20 metros", "15 metros"],
+    "answer": "20 metros"
+  },
+  {
+    "question": "Qual a finalidade do serviço de amador segundo a ANACOM?",
+    "options": ["Fins comerciais", "Investigação e experimentação", "Televisão aberta", "Serviços militares"],
+    "answer": "Investigação e experimentação"
+  },
+  {
+    "question": "Um operador de Classe 3 pode usar micro-ondas (>1 GHz)?",
+    "options": ["Sim, todas as bandas", "Não", "Sim, apenas com licença especial", "Sim, se a banda estiver atribuída"],
+    "answer": "Sim, se a banda estiver atribuída"
+  },
+  {
+    "question": "Que documento deve estar disponível para inspeção numa estação de amador?",
+    "options": ["Certificado de residência", "Licença ANACOM", "Bilhete de identidade", "Contracheque"],
+    "answer": "Licença ANACOM"
+  },
+  {
+    "question": "Como deve ser identificado o indicativo durante a transmissão?",
+    "options": ["No início e no fim de cada intercambio", "Apenas no início do dia", "Uma vez por hora", "Só quando solicitado"],
+    "answer": "No início e no fim de cada intercambio"
+  },
+  {
+    "question": "Qual é a largura de banda típica de um sinal em modos digitais PSK31?",
+    "options": ["31 Hz", "100 Hz", "250 Hz", "500 Hz"],
+    "answer": "31 Hz"
+  },
+  {
+    "question": "Que banda HF cobre a faixa de 3.5 a 4.0 MHz?",
+    "options": ["80 metros", "40 metros", "20 metros", "15 metros"],
+    "answer": "80 metros"
+  },
+  {
+    "question": "Qual a frequência central da banda dos 40 metros?",
+    "options": ["7.000 MHz", "7.200 MHz", "7.100 MHz", "7.300 MHz"],
+    "answer": "7.100 MHz"
+  },
+  {
+    "question": "As estações de amador podem realizar comunicações comerciais?",
+    "options": ["Sim", "Não", "Só com licença especial", "Só em emergências"],
+    "answer": "Não"
+  },
+  {
+    "question": "Qual a finalidade do diário de bordo da estação?",
+    "options": ["Registrar comunicações", "Contabilizar consumo de energia", "Registrar despesas", "Anotar equipamentos usados"],
+    "answer": "Registrar comunicações"
+  },
+  {
+    "question": "Em caso de interferência prejudicial, o que deve o operador de amador fazer?",
+    "options": ["Ignorar", "Continuar a transmitir", "Notificar a ANACOM", "Mudar de frequência sem registar"],
+    "answer": "Notificar a ANACOM"
+  },
+  {
+    "question": "Qual a forma de modulação permitida em fonia?",
+    "options": ["FM, AM, SSB", "AM apenas", "FM apenas", "SSB apenas"],
+    "answer": "FM, AM, SSB"
+  },
+  {
+    "question": "Qual é a frequência de chamada nacional em 2m?",
+    "options": ["144.300 MHz", "145.500 MHz", "146.000 MHz", "147.300 MHz"],
+    "answer": "145.500 MHz"
+  },
+  {
+    "question": "Qual é a potência máxima permitida em VHF para classe 3?",
+    "options": ["25 W", "50 W", "100 W", "200 W"],
+    "answer": "50 W"
+  },
+  {
+    "question": "Que antenas podem ser utilizadas sem autorização específica?",
+    "options": ["Antenas até 10 m de altura", "Antenas fixas de qualquer altura", "Antenas móveis apenas", "Todas as antenas"],
+    "answer": "Antenas até 10 m de altura"
+  },
+  {
+    "question": "É obrigatória a inscrição de qual documento na estação?",
+    "options": ["Manual do transceptor", "Licença de estação", "Contrato de fornecedor", "Certificado térmico"],
+    "answer": "Licença de estação"
+  },
+  {
+    "question": "Qual é o mínimo de chamadas de identificação por hora?",
+    "options": ["1", "2", "4", "0"],
+    "answer": "1"
+  },
+  {
+    "question": "Que modulação é usada em SSTV?",
+    "options": ["FM", "AM", "SSB", "Digital"],
+    "answer": "SSB"
+  },
+  {
+    "question": "Quando a banda de 145 MHz está ativa?",
+    "options": ["Todo o dia", "Apenas de dia", "Apenas de noite", "Em horários específicos"],
+    "answer": "Todo o dia"
+  },
+  {
+    "question": "Qual o intervalo de frequências para 70 cm?",
+    "options": ["430-440 MHz", "446-446.1 MHz", "400-420 MHz", "440-450 MHz"],
+    "answer": "430-440 MHz"
+  },
+  {
+    "question": "É permitido explorar repetidores por amadores?",
+    "options": ["Sim, com coordenação", "Não", "Só em emergências", "Só analógico"],
+    "answer": "Sim, com coordenação"
+  },
+  {
+    "question": "Como deve ser guardado o diário de estação?",
+    "options": ["Em papel apenas", "Em formato digital apenas", "Ambos, papel e digital", "Não é obrigatório guardar"],
+    "answer": "Ambos, papel e digital"
+  },
+  {
+    "question": "Que emissões são proibidas?",
+    "options": ["Fins militares", "Fins comerciais", "Ambas", "Nenhuma"],
+    "answer": "Ambas"
+  },
+  {
+    "question": "Qual a faixa de VHF atribuída?",
+    "options": ["144-146 MHz", "145-147 MHz", "146-148 MHz", "147-149 MHz"],
+    "answer": "144-146 MHz"
+  },
+  {
+    "question": "Que órgão em Portugal atribui os indicativos de chamada para estações de amador?",
+    "options": ["ANACOM", "ARCEP", "IPQ", "CTT"],
+    "answer": "ANACOM"
+  },
+  {
+    "question": "Em que banda se encontra a frequência 28.000 MHz?",
+    "options": ["10 metros", "15 metros", "20 metros", "80 metros"],
+    "answer": "10 metros"
+  },
+  {
+    "question": "Quantos minutos deve durar um CQ padrão se não houver resposta?",
+    "options": ["5 minutos", "2 minutos", "1 minuto", "3 minutos"],
+    "answer": "1 minuto"
+  },
+  {
+    "question": "É permitida a retransmissão automática de comunicações de outras estações?",
+    "options": ["Sim, sempre", "Sim, com autorização da ANACOM", "Não", "Apenas no modo digital"],
+    "answer": "Não"
+  },
+  {
+    "question": "Qual é a modulação mais comum utilizada em VHF para fonia?",
+    "options": ["AM", "FM", "SSB", "CW"],
+    "answer": "FM"
+  },
+  {
+    "question": "Que serviço é considerado prioritário em situações de emergência?",
+    "options": ["Serviço de amador", "Serviço de radiodifusão", "Serviço de socorro", "Serviço de televisão"],
+    "answer": "Serviço de socorro"
+  },
+  {
+    "question": "Qual destes modos é considerado digital?",
+    "options": ["PSK31", "SSB", "CW", "AM"],
+    "answer": "PSK31"
+  },
+  {
+    "question": "Que código é usado para abreviar termos nas comunicações de amador?",
+    "options": ["Código Morse", "Código Q", "Código ICAO", "Código CTCSS"],
+    "answer": "Código Q"
+  },
+  {
+    "question": "O que significa QTH no código Q?",
+    "options": ["Localização", "Hora", "Potência", "Mensagem"],
+    "answer": "Localização"
+  },
+  {
+    "question": "Que frequência pode ser usada para comunicações internacionais em HF?",
+    "options": ["27.205 MHz", "14.070 MHz", "146.000 MHz", "433.500 MHz"],
+    "answer": "14.070 MHz"
+  },
+  {
+    "question": "Quem é responsável pelo uso correto da estação?",
+    "options": ["ANACOM", "O fabricante", "O operador", "O instalador"],
+    "answer": "O operador"
+  },
+  {
+    "question": "Que tipo de estação pode um operador classe 3 utilizar?",
+    "options": ["Fixa, móvel e portátil", "Somente fixa", "Somente portátil", "Somente móvel"],
+    "answer": "Fixa, móvel e portátil"
+  },
+  {
+    "question": "É permitido o uso de linguagem ofensiva nas transmissões?",
+    "options": ["Sim, em conversas privadas", "Sim, se todos os ouvintes concordarem", "Não", "Somente em bandas digitais"],
+    "answer": "Não"
+  },
+  {
+    "question": "Qual é o principal objetivo da prática de escuta (SWL)?",
+    "options": ["Melhorar vocabulário", "Obter diploma de operador", "Aprender técnicas e propagação", "Obter descontos em equipamentos"],
+    "answer": "Aprender técnicas e propagação"
+  },
+  {
+    "question": "Qual a faixa designada para contatos locais em UHF?",
+    "options": ["433-435 MHz", "420-430 MHz", "446-448 MHz", "435-438 MHz"],
+    "answer": "433-435 MHz"
+  },
+  {
+    "question": "O que significa SWR?",
+    "options": ["Sinal de receção", "Relação de onda estacionária", "Potência emitida", "Ruído de banda"],
+    "answer": "Relação de onda estacionária"
+  },
+  {
+    "question": "Como se chama o efeito de propagação à noite nas bandas HF?",
+    "options": ["Auroral", "Troposférico", "Ionosférico", "Inversão térmica"],
+    "answer": "Ionosférico"
+  },
+  {
+    "question": "Qual a consequência de um alto SWR?",
+    "options": ["Melhor receção", "Maior alcance", "Risco para o transmissor", "Nada relevante"],
+    "answer": "Risco para o transmissor"
+  },
+  {
+    "question": "Que organização mundial coordena o serviço de amador?",
+    "options": ["ITU", "ANACOM", "IARU", "ONU"],
+    "answer": "ITU"
+  },
+  {
+    "question": "Quantas vezes por hora é recomendada a identificação da estação?",
+    "options": ["1", "2", "3", "4"],
+    "answer": "1"
+  }
+
+]
