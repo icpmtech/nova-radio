@@ -1,6 +1,131 @@
 
 [
   {
+    "question": "O que significa o código QTH?",
+    "options": ["Localização", "Sinal fraco", "Transmissão de emergência", "Mudança de frequência"],
+    "answer": "Localização"
+  },
+  {
+    "question": "Qual a faixa atribuída ao serviço de amador em 6 metros?",
+    "options": ["50-54 MHz", "28-30 MHz", "70-72 MHz", "144-148 MHz"],
+    "answer": "50-54 MHz"
+  },
+  {
+    "question": "Qual é a finalidade do código QSL?",
+    "options": ["Solicitar repetição", "Confirmar receção de contacto", "Indicar silêncio de rádio", "Encerrar transmissão"],
+    "answer": "Confirmar receção de contacto"
+  },
+  {
+    "question": "A utilização de equipamentos de construção própria é permitida?",
+    "options": ["Sim", "Não", "Só com certificação CE", "Apenas em concursos"],
+    "answer": "Sim"
+  },
+  {
+    "question": "Qual o código Q usado para pedir repetição da mensagem?",
+    "options": ["QSP", "QRO", "QRS", "QRS"],
+    "answer": "QRS"
+  },
+  {
+    "question": "Qual destas bandas pertence ao espectro UHF?",
+    "options": ["433 MHz", "144 MHz", "28 MHz", "7 MHz"],
+    "answer": "433 MHz"
+  },
+  {
+    "question": "É permitido operar estações automáticas sem supervisão?",
+    "options": ["Sim, com autorização", "Não", "Apenas à noite", "Apenas com observador"],
+    "answer": "Sim, com autorização"
+  },
+  {
+    "question": "Qual a designação correta para a estação do operador de amador?",
+    "options": ["Pessoal", "Doméstica", "Estação de amador", "Privada"],
+    "answer": "Estação de amador"
+  },
+  {
+    "question": "Qual a principal vantagem da modulação SSB sobre AM?",
+    "options": ["Maior largura de banda", "Menor potência necessária", "Melhor qualidade de som", "Mais fácil de construir"],
+    "answer": "Menor potência necessária"
+  },
+  {
+    "question": "Qual a frequência central típica da banda dos 10 metros?",
+    "options": ["28.400 MHz", "29.600 MHz", "27.555 MHz", "14.100 MHz"],
+    "answer": "28.400 MHz"
+  },
+  {
+    "question": "Qual é o objetivo dos repetidores em VHF/UHF?",
+    "options": ["Gerar ruído", "Estender a área de cobertura", "Reduzir interferências", "Transmitir em onda curta"],
+    "answer": "Estender a área de cobertura"
+  },
+  {
+    "question": "Qual é a principal função de um conector PL-259?",
+    "options": ["Alimentar a antena", "Conectar cabos coaxiais", "Amplificar sinal", "Medir corrente"],
+    "answer": "Conectar cabos coaxiais"
+  },
+  {
+    "question": "Que faixa é conhecida como "banda de trabalho" para contatos locais?",
+    "options": ["2 metros", "20 metros", "10 metros", "40 metros"],
+    "answer": "2 metros"
+  },
+  {
+    "question": "Qual é a função do relé em uma estação de repetidor?",
+    "options": ["Abrir a transmissão", "Gerar sinais de teste", "Ativar PTT remotamente", "Permitir troca de polarização"],
+    "answer": "Ativar PTT remotamente"
+  },
+  {
+    "question": "O que representa a sigla SWL?",
+    "options": ["Short Wave Listener", "Signal Wave Level", "Silent Wireless Loop", "Station Wide Link"],
+    "answer": "Short Wave Listener"
+  },
+  {
+    "question": "Qual destas afirmações sobre polarização de antena está correta?",
+    "options": ["Todas as antenas são circulares", "Vertical é para VHF, horizontal para HF", "Todas devem ser verticais", "Polarização é irrelevante"],
+    "answer": "Vertical é para VHF, horizontal para HF"
+  },
+  {
+    "question": "Qual é o código Q para "estou ocupado"?",
+    "options": ["QRT", "QRL", "QRZ", "QSB"],
+    "answer": "QRL"
+  },
+  {
+    "question": "Como se chama o efeito de propagação causado por tempestades solares?",
+    "options": ["Auroral", "Troposférico", "Espalhamento meteórico", "Inversão térmica"],
+    "answer": "Auroral"
+  },
+  {
+    "question": "A estação de amador pode ser operada por outra pessoa?",
+    "options": ["Sim, se licenciada", "Sim, sem restrições", "Não, nunca", "Apenas com supervisão da ANACOM"],
+    "answer": "Sim, se licenciada"
+  },
+  {
+    "question": "Que valor representa a velocidade da luz usada em cálculos de antenas?",
+    "options": ["150.000 km/s", "200.000 km/s", "300.000 km/s", "100.000 km/s"],
+    "answer": "300.000 km/s"
+  },
+  {
+    "question": "Qual é a consequência de uma ligação mal feita ao terra?",
+    "options": ["Nenhuma", "Pode causar interferência e perigo", "Melhora sinal", "Reduz potência"],
+    "answer": "Pode causar interferência e perigo"
+  },
+  {
+    "question": "Que tipo de cabo é mais usado para ligar antenas a transceptores?",
+    "options": ["UTP", "Fibra óptica", "Coaxial", "HDMI"],
+    "answer": "Coaxial"
+  },
+  {
+    "question": "Que fenómeno pode ocorrer ao usar antenas mal ajustadas?",
+    "options": ["Aumento de ganho", "Perda de receção", "Reflexão de potência", "Redução de ruído"],
+    "answer": "Reflexão de potência"
+  },
+  {
+    "question": "Como se designa a comunicação através de satélite?",
+    "options": ["HF link", "Moonbounce", "Comunicação espacial", "Satélite de amador"],
+    "answer": "Satélite de amador"
+  },
+  {
+    "question": "Em que bandas é mais comum usar FM simplex?",
+    "options": ["HF", "VHF/UHF", "SHF", "LF"],
+    "answer": "VHF/UHF"
+  },
+  {
     "question": "Qual é a potência máxima permitida para a Classe 3 nas bandas HF?",
     "options": ["10 W", "50 W", "100 W PEP", "500 W"],
     "answer": "100 W PEP"
