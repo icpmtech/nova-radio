@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
@@ -17,54 +16,155 @@
       --border-radius: 12px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', sans-serif; background: var(--bg-dark); color: var(--text-light); display: flex; flex-direction: column; align-items: center; padding: 20px; }
-    header { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--tiktok-pink), var(--tiktok-cyan)); border-radius: var(--border-radius); text-align: center; margin-bottom: 20px; }
-    header h1 { font-size: 1.8rem; color: #000; }
-    header div { margin-top: 8px; }
-    .info, .controls, .visuals, .media { width: 100%; max-width: 960px; background: var(--card-bg); border-radius: var(--border-radius); padding: 16px; margin-bottom: 20px; }
-    .info h2, .media h2 { color: var(--tiktok-pink); margin-bottom: 8px; }
-    .info p, .info li, .media p { font-size: 0.95rem; line-height: 1.4; }
-    .info ul, .media ul { margin-left: 16px; margin-bottom: 12px; }
-    .info a, .media a { color: var(--tiktok-cyan); text-decoration: none; }
-    .controls { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-around; align-items: center; }
-    .controls label { display: flex; flex-direction: column; align-items: flex-start; font-size: 0.9rem; color: var(--text-light); }
-    .controls select, .controls input { margin-top: 4px; padding: 6px; border: none; border-radius: 8px; background: #222; color: var(--text-light); }
-    .controls input[type=range] { width: 140px; -webkit-appearance: none; background: transparent; }
-    .controls input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--tiktok-pink); cursor: pointer; }
-    .controls input[type=range]::-webkit-slider-runnable-track { height: 4px; background: var(--tiktok-cyan); border-radius: 2px; }
-    .controls button { padding: 8px 16px; border: 2px solid var(--tiktok-cyan); border-radius: 8px; background: transparent; color: var(--text-light); font-weight: bold; cursor: pointer; transition: background 0.2s; }
-    .controls button:hover { background: var(--tiktok-cyan); color: #000; }
-    #bitDisplay { font-size: 1rem; text-align: center; color: var(--text-muted); margin-bottom: 10px; }
-    .visuals canvas { width: 100%; border-radius: var(--border-radius); margin-bottom: 12px; }
-    .media iframe { width: 100%; height: 360px; border: none; border-radius: var(--border-radius); margin-bottom: 12px; }
-    footer { margin-top: auto; font-size: 0.8rem; color: var(--text-muted); }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    header {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--tiktok-pink), var(--tiktok-cyan));
+      border-radius: var(--border-radius);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 1.8rem;
+      color: #000;
+      text-shadow: none;
+    }
+    .info, .controls, .visuals {
+      width: 100%;
+      max-width: 960px;
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    .info h2 {
+      color: var(--tiktok-pink);
+      margin-bottom: 8px;
+    }
+    .info p, .info li {
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+    .info ul { margin-left: 16px; margin-bottom: 12px; }
+    .info a { color: var(--tiktok-cyan); text-decoration: none; }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-around;
+      align-items: center;
+    }
+    .controls label {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+    .controls select,
+    .controls input {
+      margin-top: 4px;
+      padding: 6px;
+      border: none;
+      border-radius: 8px;
+      background: #222;
+      color: var(--text-light);
+    }
+    .controls input[type=range] {
+      width: 140px;
+      -webkit-appearance: none;
+      background: transparent;
+    }
+    .controls input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--tiktok-pink);
+      cursor: pointer;
+    }
+    .controls input[type=range]::-webkit-slider-runnable-track {
+      height: 4px;
+      background: var(--tiktok-cyan);
+      border-radius: 2px;
+    }
+    .controls button {
+      padding: 8px 16px;
+      border: 2px solid var(--tiktok-cyan);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text-light);
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .controls button:hover {
+      background: var(--tiktok-cyan);
+      color: #000;
+    }
+    #bitDisplay {
+      font-size: 1rem;
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .visuals canvas {
+      width: 100%;
+      border-radius: var(--border-radius);
+      margin-bottom: 12px;
+    }
+    footer {
+      margin-top: auto;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1 data-i18n="title">Visualizador de Modulação Digital</h1>
-    <div>
-      <label data-i18n="langLabel">Idioma:</label>
-      <select id="langSelect">
-        <option value="pt">PT</option>
-        <option value="en">EN</option>
-      </select>
-    </div>
+    <h1>Visualizador de Modulação Digital</h1>
   </header>
-
   <section class="info">
-    <h2 data-i18n="infoTitle">Modulação Digital</h2>
-    <p data-i18n="infoDesc">Processo de converter bits (0s e 1s) em sinais analógicos para transmissão. Usa variações de amplitude, frequência e fase de uma portadora senoidal.</p>
+    <h2>Modulação Digital</h2>
+    <p>Processo de converter bits (0s e 1s) em sinais analógicos para transmissão. Usa variações de amplitude, frequência e fase de uma portadora senoidal.</p>
     <ul>
-      <li data-i18n="ask">ASK: Variação de amplitude. <a href="https://pt.wikipedia.org/wiki/Modula%C3%A7%C3%A3o_por_deslocamento_de_amplitude" target="_blank">Wikipedia PT</a></li>
-      <li data-i18n="fsk">FSK: Variação de frequência. <a href="https://pt.wikipedia.org/wiki/Modula%C3%A7%C3%A3o_por_deslocamento_de_frequ%C3%AAncia" target="_blank">Wikipedia PT</a></li>
-      <li data-i18n="bpsk">BPSK: Variação de fase 0°/180°. <a href="https://en.wikipedia.org/wiki/Phase-shift_keying#Binary_phase-shift_keying_(BPSK)" target="_blank">Wikipedia EN</a></li>
-      <li data-i18n="qpsk">QPSK: 2 bits/símbolo em 4 fases. <a href="https://pt.wikipedia.org/wiki/Modula%C3%A7%C3%A3o_QPSK" target="_blank">Wikipedia PT</a></li>
+      <li><b>ASK:</b> Variação de amplitude. <a href="https://pt.wikipedia.org/wiki/Modula%C3%A7%C3%A3o_por_deslocamento_de_amplitude" target="_blank">Wikipedia</a></li>
+      <li><b>FSK:</b> Variação de frequência. <a href="https://pt.wikipedia.org/wiki/Modula%C3%A7%C3%A3o_por_deslocamento_de_frequ%C3%AAncia" target="_blank">Wikipedia</a></li>
+      <li><b>BPSK:</b> Variação de fase 0°/180°. <a href="https://en.wikipedia.org/wiki/Phase-shift_keying#Binary_phase-shift_keying_(BPSK)" target="_blank">Wikipedia EN</a></li>
+      <li><b>QPSK:</b> 2 bits/símbolo em 4 fases. <a href="https://pt.wikipedia.org/wiki/Modula%C3%A7%C3%A3o_QPSK" target="_blank">Wikipedia</a></li>
     </ul>
+    <h2>Modulações Avançadas</h2>
+    <ul>
+      <li><b>16QAM:</b> 4 níveis amplitude + 4 fases = 4 bits/símbolo. <a href="https://en.wikipedia.org/wiki/Quadrature_amplitude_modulation#16-QAM" target="_blank">Wikipedia</a></li>
+      <li><b>64QAM:</b> 8 níveis amplitude + 8 fases = 6 bits/símbolo. Usada em 4G, Wi-Fi, DVB-T. <a href="https://en.wikipedia.org/wiki/Quadrature_amplitude_modulation#64-QAM" target="_blank">Wikipedia</a></li>
+      <li><b>OFDM:</b> Multicarrier ortogonal modulada com QAM. Base de Wi-Fi 5/6, 4G/5G. <a href="https://en.wikipedia.org/wiki/Orthogonal_frequency-division_multiplexing" target="_blank">Wikipedia</a></li>
+    </ul>
+    <h2>Frequências de Rádio</h2>
+    <ul>
+      <li><b>LF (30–300 kHz):</b> Propagação terrestre, centenas de km.</li>
+      <li><b>MF (300–3000 kHz):</b> AM broadcast, ~100 km.</li>
+      <li><b>HF (3–30 MHz):</b> Reflexão ionosférica, alcance global.</li>
+      <li><b>VHF (30–300 MHz):</b> FM/TV, linha de visão ~50 km.</li>
+      <li><b>UHF (300–1000 MHz):</b> Celular/Wi-Fi, ~20 km.</li>
+      <li><b>SHF (3–30 GHz):</b> Radar/satélite, poucos km.</li>
+      <li><b>EHF (30–300 GHz):</b> mmWave, metros (5G).</li>
+    </ul>
+    <h2>Espectro & FFT</h2>
+    <p>FFT mostra picos nas frequências das portadoras e harmónicas. Teorema de Nyquist: <code>fs ≥ 2·BW</code>.</p>
   </section>
 
   <section class="controls">
-    <label data-i18n="modLabel">Modulação:
+    <label>
+      Modulação:
       <select id="modType">
         <option>ASK</option>
         <option>FSK</option>
@@ -72,17 +172,19 @@
         <option>QPSK</option>
       </select>
     </label>
-    <label data-i18n="bitRateLabel">Bits/s:
+    <label>
+      Bits/s:
       <input type="range" id="bitRate" min="1" max="10" value="2">
-      <span id="bitRateValue">2</span>
+      <span id="bitRateLabel">2</span>
     </label>
-    <label><input type="checkbox" id="noiseToggle"> <span data-i18n="noise">Ruído</span></label>
-    <label><input type="checkbox" id="autoToggle"> <span data-i18n="auto">Auto</span></label>
-    <label data-i18n="radioFreqLabel">Freq Rádio (Hz):
+    <label><input type="checkbox" id="noiseToggle"> Ruído</label>
+    <label><input type="checkbox" id="autoToggle"> Auto</label>
+    <label>
+      Freq Rádio (Hz):
       <input type="range" id="radioFreq" min="1" max="20" value="5">
-      <span id="radioFreqValue">5</span>
+      <span id="radioFreqLabel">5</span>
     </label>
-    <button id="capture" data-i18n="capture">Guardar Imagem</button>
+    <button id="capture">Guardar Imagem</button>
   </section>
 
   <section class="visuals">
@@ -92,73 +194,9 @@
     <canvas id="radioCanvas" height="100"></canvas>
   </section>
 
-  <section class="media">
-    <h2 data-i18n="videoTitle">Explanatory Videos</h2>
-    <iframe src="https://www.youtube.com/embed/8X0YDwHWZQY" title="Digital Modulation Tutorial" allowfullscreen></iframe>
-    <iframe src="https://www.youtube.com/embed/3z1uCNz0ZbA" title="QAM Explained" allowfullscreen></iframe>
-    <h2 data-i18n="wikiTitle">Recommended Reading</h2>
-    <ul>
-      <li><a href="https://en.wikipedia.org/wiki/Digital_modulation" target="_blank" data-i18n="wikiDigitMod">Digital Modulation (EN)</a></li>
-      <li><a href="https://en.wikipedia.org/wiki/Orthogonal_frequency-division_multiplexing" target="_blank" data-i18n="wikiOFDM">OFDM (EN)</a></li>
-    </ul>
-  </section>
-
   <footer>© 2025 Visualizador Modulação Digital</footer>
 
   <script>
-    // i18n translations
-    const translations = {
-      pt: {
-        title: 'Visualizador de Modulação Digital',
-        langLabel: 'Idioma:',
-        infoTitle: 'Modulação Digital',
-        infoDesc: 'Processo de converter bits (0s e 1s) em sinais analógicos para transmissão. Usa variações de amplitude, frequência e fase de uma portadora senoidal.',
-        ask: 'ASK: Variação de amplitude.',
-        fsk: 'FSK: Variação de frequência.',
-        bpsk: 'BPSK: Variação de fase 0°/180°.',
-        qpsk: 'QPSK: 2 bits/símbolo em 4 fases.',
-        modLabel: 'Modulação:',
-        bitRateLabel: 'Bits/s:',
-        noise: 'Ruído',
-        auto: 'Auto',
-        radioFreqLabel: 'Freq Rádio (Hz):',
-        capture: 'Guardar Imagem',
-        videoTitle: 'Vídeos Explicativos',
-        wikiTitle: 'Leituras Recomendadas',
-        wikiDigitMod: 'Digital Modulation (EN)',
-        wikiOFDM: 'OFDM (EN)'
-      },
-      en: {
-        title: 'Digital Modulation Visualizer',
-        langLabel: 'Language:',
-        infoTitle: 'Digital Modulation',
-        infoDesc: 'Process of converting bits (0s and 1s) into analog signals for transmission. It uses changes in amplitude, frequency, and phase of a sinusoidal carrier.',
-        ask: 'ASK: Amplitude Shift Keying.',
-        fsk: 'FSK: Frequency Shift Keying.',
-        bpsk: 'BPSK: Binary Phase Shift Keying 0°/180°.',
-        qpsk: 'QPSK: 2 bits/symbol in 4 phases.',
-        modLabel: 'Modulation:',
-        bitRateLabel: 'Bits/s:',
-        noise: 'Noise',
-        auto: 'Auto',
-        radioFreqLabel: 'Radio Freq (Hz):',
-        capture: 'Save Image',
-        videoTitle: 'Explanatory Videos',
-        wikiTitle: 'Recommended Reading',
-        wikiDigitMod: 'Digital Modulation (EN)',
-        wikiOFDM: 'OFDM (EN)'
-      }
-    };
-    function setLanguage(lang) {
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translations[lang][key]) el.textContent = translations[lang][key];
-      });
-    }
-    document.getElementById('langSelect').onchange = e => setLanguage(e.target.value);
-    setLanguage('pt');
-
-    // Visualization logic
     const signalCanvas = document.getElementById('signalCanvas');
     const fftCanvas = document.getElementById('fftCanvas');
     const radioCanvas = document.getElementById('radioCanvas');
@@ -167,11 +205,11 @@
     const radioCtx = radioCanvas.getContext('2d');
     const modTypeSelect = document.getElementById('modType');
     const bitRateSlider = document.getElementById('bitRate');
-    const bitRateValue = document.getElementById('bitRateValue');
+    const bitRateLabel = document.getElementById('bitRateLabel');
     const noiseToggle = document.getElementById('noiseToggle');
     const autoToggle = document.getElementById('autoToggle');
     const radioFreqSlider = document.getElementById('radioFreq');
-    const radioFreqValue = document.getElementById('radioFreqValue');
+    const radioFreqLabel = document.getElementById('radioFreqLabel');
     const bitDisplay = document.getElementById('bitDisplay');
     const captureBtn = document.getElementById('capture');
 
@@ -202,89 +240,54 @@
 
     function render() {
       const type = modTypeSelect.value;
-      const bitRate = +bitRateSlider.value; bitRateValue.textContent = bitRate;
-      const radioFreq = +radioFreqSlider.value; radioFreqValue.textContent = radioFreq;
+      const bitRate = +bitRateSlider.value; bitRateLabel.textContent = bitRate;
+      const radioFreq = +radioFreqSlider.value; radioFreqLabel.textContent = radioFreq;
       bitDisplay.textContent = 'Bits: ' + bits.slice(0,16).join(' ');
 
-      // Adjust canvas sizes
-      signalCanvas.width = signalCanvas.clientWidth;
-      fftCanvas.width = fftCanvas.clientWidth;
-      radioCanvas.width = radioCanvas.clientWidth;
-
       // Signal Wave
-      const w1 = signalCanvas.width, h1 = signalCanvas.height;
-      ctx.clearRect(0,0,w1,h1);
+      ctx.canvas.width = ctx.canvas.clientWidth; ctx.canvas.height = 200;
+      ctx.clearRect(0,0,ctx.canvas.width,200);
       ctx.beginPath();
-      for (let x = 0; x < w1; x++) {
-        const t = time + x / sampleRate;
-        let v = getModulatedSignal(t, type, bitRate);
-        if (noiseToggle.checked) v = addNoise(v);
-        const y = h1/2 - v * 80;
-        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      for(let x=0;x<ctx.canvas.width;x++){
+        const t = time + x/sampleRate;
+        let v = getModulatedSignal(t,type,bitRate);
+        if(noiseToggle.checked) v = addNoise(v);
+        const y = 100 - v*80;
+        x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
       }
-      ctx.strokeStyle = '#00ffff'; ctx.lineWidth = 2; ctx.stroke();
+      ctx.strokeStyle='#00ffff'; ctx.lineWidth=2; ctx.stroke();
 
       // FFT
-      const N = 512;
-      const re = new Array(N);
-      for (let k = 0; k < N; k++) {
-        const v = getModulatedSignal(time + k / sampleRate, type, bitRate);
-        re[k] = noiseToggle.checked ? addNoise(v) : v;
-      }
-      const mag = new Array(N/2);
-      for (let f = 0; f < N/2; f++) {
-        let real = 0, imag = 0;
-        for (let n = 0; n < N; n++) {
-          const ang = 2 * Math.PI * f * n / N;
-          real += re[n] * Math.cos(ang);
-          imag -= re[n] * Math.sin(ang);
-        }
-        mag[f] = Math.sqrt(real*real + imag*imag);
-      }
-      const w2 = fftCanvas.width, h2 = fftCanvas.height;
-      fftCtx.clearRect(0,0,w2,h2);
-      fftCtx.beginPath();
-      for (let i = 0; i < mag.length; i++) {
-        const x = i / mag.length * w2;
-        const y = h2 - mag[i] * 0.5;
-        i === 0 ? fftCtx.moveTo(x, y) : fftCtx.lineTo(x, y);
-      }
-      fftCtx.strokeStyle = '#ff0077'; fftCtx.lineWidth = 2; fftCtx.stroke();
+      fftCtx.canvas.width = fftCtx.canvas.clientWidth; fftCtx.canvas.height = 150;
+      const N=512; const re=new Array(N);
+      for(let k=0;k<N;k++){let v=getModulatedSignal(time+k/sampleRate,type,bitRate); if(noiseToggle.checked)v=addNoise(v); re[k]=v;}
+      const mag=Array(N/2).fill(0);
+      for(let f=0;f<N/2;f++){let r=0,i=0; for(let n=0;n<N;n++){const ang=2*Math.PI*f*n/N; r+=re[n]*Math.cos(ang); i-=re[n]*Math.sin(ang);} mag[f]=Math.sqrt(r*r+i*i);}      
+      fftCtx.clearRect(0,0,fftCtx.canvas.width,150); fftCtx.beginPath();
+      for(let i=0;i<N/2;i++){const x=i/(N/2)*fftCtx.canvas.width; const y=150-mag[i]*0.5; i===0?fftCtx.moveTo(x,y):fftCtx.lineTo(x,y);}      
+      fftCtx.strokeStyle='#ff0077'; fftCtx.lineWidth=2; fftCtx.stroke();
 
-      // Radio wave propagation
-      const w3 = radioCanvas.width, h3 = radioCanvas.height;
-      radioCtx.clearRect(0,0,w3,h3);
+      // Radio Wave Propagation
+      radioCtx.canvas.width = radioCtx.canvas.clientWidth; radioCtx.canvas.height = 100;
+      radioCtx.clearRect(0,0,radioCtx.canvas.width,100);
       radioCtx.beginPath();
-      for (let x = 0; x < w3; x++) {
-        const t0 = time - x/200;
-        const v = Math.sin(2 * Math.PI * radioFreq * t0);
-        const y = h3/2 - v * 40;
-        x === 0 ? radioCtx.moveTo(x, y) : radioCtx.lineTo(x, y);
-      }
-      radioCtx.strokeStyle = '#ffaa00'; radioCtx.lineWidth = 2; radioCtx.stroke();
+      for(let x=0;x<radioCtx.canvas.width;x++){const t0=time - x/200; const v=Math.sin(2*Math.PI*radioFreq*t0); const y=50 - v*40; x===0?radioCtx.moveTo(x,y):radioCtx.lineTo(x,y);}      
+      radioCtx.strokeStyle='#ffaa00'; radioCtx.lineWidth=2; radioCtx.stroke();
 
-      // Auto rotate modulation
-      if (autoToggle.checked) {
-        autoTimer++;
-        if (autoTimer > 150) {
-          autoTimer = 0;
-          autoIndex = (autoIndex + 1) % modTypes.length;
-          modTypeSelect.value = modTypes[autoIndex];
-        }
-      }
+      // Auto Change
+      if(autoToggle.checked && ++autoTimer>150){ autoIndex=(autoIndex+1)%modTypes.length; modTypeSelect.value=modTypes[autoIndex]; autoTimer=0; }
 
-      time += 1 / sampleRate;
+      time += 1/sampleRate;
       requestAnimationFrame(render);
     }
 
     captureBtn.onclick = () => {
       const out = document.createElement('canvas');
-      out.width = signalCanvas.width;
-      out.height = signalCanvas.height + fftCanvas.height + radioCanvas.height;
+      out.width = signalCanvas.width; out.height = 200+150+100;
       const octx = out.getContext('2d');
-      octx.drawImage(signalCanvas, 0, 0);
-      octx.drawImage(fftCanvas, 0, signalCanvas.height);
-      octx.drawImage(radioCanvas, 0, signalCanvas.height + fftCanvas.height);
+      octx.drawImage(signalCanvas,0,0);
+      octx.drawImage(fftCanvas,0,200);
+      octx.drawImage(radioCanvas,0,350);
       const a = document.createElement('a');
       a.download = 'visual_modulacao_tiktok.png';
       a.href = out.toDataURL();
