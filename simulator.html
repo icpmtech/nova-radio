@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-PT">
+<!DOCTYPE html><html lang="pt-PT">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -132,12 +131,12 @@
 <body>
   <header>
     <h1>Visualizador de Modulação Digital</h1>
-  </header>
-  <section class="info">
-    <h2>Modulação Digital</h2>
-    <p>Processo de converter bits (0s e 1s) em sinais analógicos para transmissão. Usa variações de amplitude, frequência e fase de uma portadora senoidal.</p>
+  </header>  <section class="info">
+    <h2>Modulação Digital & Analógica</h2>
+    <p>Processo de converter bits (0s e 1s) ou sinais analógicos em sinais para transmissão, usando variações de amplitude, frequência e fase de uma portadora senoidal.</p>
     <ul>
-      <li><b>ASK:</b> Variação de amplitude. <a href="https://pt.wikipedia.org/wiki/Modula%C3%A7%C3%A3o_por_deslocamento_de_amplitude" target="_blank">Wikipedia</a></li>
+      <li><b>AM:</b> Modulação de amplitude analógica. Varia a amplitude de uma portadora senoidal de alta frequência de acordo com um sinal de mensagem de baixa frequência. <a href="https://pt.wikipedia.org/wiki/Modula%C3%A7%C3%A3o_de_amplitude" target="_blank">Wikipedia</a></li>
+      <li><b>ASK:</b> Variação de amplitude digital. <a href="https://pt.wikipedia.org/wiki/Modula%C3%A7%C3%A3o_por_deslocamento_de_amplitude" target="_blank">Wikipedia</a></li>
       <li><b>FSK:</b> Variação de frequência. <a href="https://pt.wikipedia.org/wiki/Modula%C3%A7%C3%A3o_por_deslocamento_de_frequ%C3%AAncia" target="_blank">Wikipedia</a></li>
       <li><b>BPSK:</b> Variação de fase 0°/180°. <a href="https://en.wikipedia.org/wiki/Phase-shift_keying#Binary_phase-shift_keying_(BPSK)" target="_blank">Wikipedia EN</a></li>
       <li><b>QPSK:</b> 2 bits/símbolo em 4 fases. <a href="https://pt.wikipedia.org/wiki/Modula%C3%A7%C3%A3o_QPSK" target="_blank">Wikipedia</a></li>
@@ -160,12 +159,11 @@
     </ul>
     <h2>Espectro & FFT</h2>
     <p>FFT mostra picos nas frequências das portadoras e harmónicas. Teorema de Nyquist: <code>fs ≥ 2·BW</code>.</p>
-  </section>
-
-  <section class="controls">
+  </section>  <section class="controls">
     <label>
       Modulação:
       <select id="modType">
+        <option>AM</option>
         <option>ASK</option>
         <option>FSK</option>
         <option>BPSK</option>
@@ -185,18 +183,12 @@
       <span id="radioFreqLabel">5</span>
     </label>
     <button id="capture">Guardar Imagem</button>
-  </section>
-
-  <section class="visuals">
+  </section>  <section class="visuals">
     <div id="bitDisplay">Bits: ...</div>
     <canvas id="signalCanvas" height="200"></canvas>
     <canvas id="fftCanvas" height="150"></canvas>
     <canvas id="radioCanvas" height="100"></canvas>
-  </section>
-
-  <footer>© 2025 Visualizador Modulação Digital</footer>
-
-  <script>
+  </section>  <footer>© 2025 Visualizador Modulação Digital</footer>  <script>
     const signalCanvas = document.getElementById('signalCanvas');
     const fftCanvas = document.getElementById('fftCanvas');
     const radioCanvas = document.getElementById('radioCanvas');
@@ -210,27 +202,32 @@
     const autoToggle = document.getElementById('autoToggle');
     const radioFreqSlider = document.getElementById('radioFreq');
     const radioFreqLabel = document.getElementById('radioFreqLabel');
-    const bitDisplay = document.getElementById('bitDisplay');
     const captureBtn = document.getElementById('capture');
+    const bitDisplay = document.getElementById('bitDisplay');
+
+    // Parâmetros adicionais para AM
+    const messageFreq = 1;   // frequência do sinal de mensagem (Hz)
+    const modIndex    = 0.5; // índice de modulação (profundidade)
 
     let time = 0;
     const sampleRate = 1000;
     const bits = Array.from({length: 32}, () => Math.round(Math.random()));
     const freq = 3;
-    const modTypes = ['ASK','FSK','BPSK','QPSK'];
+    const modTypes = ['AM','ASK','FSK','BPSK','QPSK'];
     let autoIndex = 0;
     let autoTimer = 0;
 
     function getModulatedSignal(t, type, bitRate) {
       const bit = bits[Math.floor(t * bitRate) % bits.length];
       switch(type) {
+        case 'AM':
+          const m = Math.sin(2*Math.PI*messageFreq*t);
+          return (1 + modIndex * m) * Math.sin(2*Math.PI*freq*t);
         case 'ASK': return bit ? Math.sin(2*Math.PI*freq*t) : 0;
         case 'FSK': return Math.sin(2*Math.PI*(bit?freq:freq/2)*t);
         case 'BPSK': return Math.sin(2*Math.PI*freq*t + (bit?0:Math.PI));
         case 'QPSK': {
-          const idx = Math.floor(t * bitRate / 2);
-          const b1 = bits[(idx*2)%bits.length];
-          const b2 = bits[(idx*2+1)%bits.length];
+          const idx = Math.floor(t * bitRate / 2); const b1 = bits[(idx*2)%bits.length]; const b2 = bits[(idx*2+1)%bits.length];
           const phase = (b1<<1|b2)*Math.PI/2;
           return Math.sin(2*Math.PI*freq*t + phase);
         }
@@ -295,6 +292,5 @@
     };
 
     render();
-  </script>
-</body>
+  </script></body>
 </html>
