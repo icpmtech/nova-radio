@@ -7,7 +7,7 @@
       "Existem duas leis: a lei das redes e a lei das fontes",
       "Nenhuma das afirmações está correta"
     ],
-    "answer": "Existem duas leis: a lei dos nós e a lei das malhas"
+    "answer": 0
   },
   {
     "question": "A lei das malhas de Kirchhoff, também se designa por:",
@@ -17,7 +17,7 @@
       "Lei das correntes",
       "Lei das resistências"
     ],
-    "answer": "Lei das tensões"
+    "answer": 1
   },
   {
     "question": "Num circuito em paralelo, como se relaciona a corrente total com a corrente individual em cada uma das ramificações?",
@@ -27,7 +27,7 @@
       "A corrente total é igual à soma das correntes nas várias ramificações",
       "A corrente total é igual à soma do inverso de cada queda individual de tensão"
     ],
-    "answer": "A corrente total é igual à soma das correntes nas várias ramificações"
+    "answer": 2
   },
   {
     "question": "Uma gaiola de Faraday constitui uma proteção eficaz relativamente a quê?",
@@ -37,7 +37,7 @@
       "Sismos",
       "Nenhuma das respostas anteriores está correta"
     ],
-    "answer": "Campos eletromagnéticos"
+    "answer": 0
   },
   {
     "question": "Duma forma geral, qual das seguintes linhas de transmissão possui a melhor blindagem a campos eletromagnéticos?",
@@ -47,7 +47,7 @@
       "Par telefónico",
       "Todas possuem blindagem"
     ],
-    "answer": "Cabo coaxial"
+    "answer": 0
   },
   {
     "question": "Qual das expressões define a efetividade da blindagem (S) para campos elétricos?",
@@ -57,7 +57,7 @@
       "S = 20×log(Ei/Et)",
       "S = 20 - log(Ei/Et)"
     ],
-    "answer": "S = 20·log(Ei/Et)"
+    "answer": 0
   },
   {
     "question": "A ionosfera constitui uma blindagem à volta da Terra, a campos eletromagnéticos:",
@@ -67,7 +67,7 @@
       "Em todas as frequências",
       "Em determinadas frequências"
     ],
-    "answer": "Em determinadas frequências"
+    "answer": 3
   },
   {
     "question": "Quais são os efeitos da blindagem sobre os campos magnéticos?",
@@ -77,7 +77,7 @@
       "Absorção e efeito de túnel",
       "Reflexão e aumento da velocidade de propagação"
     ],
-    "answer": "Reflexão e absorção"
+    "answer": 0
   },
   {
     "question": "Qual o equipamento mais adequado para medir a diferença de fase entre dois sinais sinusoidais?",
@@ -87,7 +87,7 @@
       "Frequencímetro",
       "Medidor de onda estacionária"
     ],
-    "answer": "Osciloscópio"
+    "answer": 1
   },
   {
     "question": "Como se designam as figuras que representam num osciloscópio a relação de fase entre dois sinais sinusoidais?",
@@ -97,7 +97,7 @@
       "Figuras de mérito",
       "Figuras de Watt"
     ],
-    "answer": "Figuras de Lissajous"
+    "answer": 0
   },
   {
     "question": "Que tipo de circuitos ideais apresentam os sinais de corrente e de tensão em fase?",
@@ -107,7 +107,7 @@
       "Circuitos puramente indutivos",
       "Qualquer tipo de circuito"
     ],
-    "answer": "Circuitos puramente resistivos"
+    "answer": 1
   },
   {
     "question": "Diz-se que dois sinais sinusoidais estão em quadratura quando o desfasamento entre eles é de:",
@@ -117,7 +117,7 @@
       "90 graus",
       "180 graus"
     ],
-    "answer": "90 graus"
+    "answer": 2
   },
   {
     "question": "A potência de ruído é dada por Pn = kTB. Como se designa a constante k?",
@@ -127,7 +127,7 @@
       "Constante de Dirac",
       "Constante de Boltzmann"
     ],
-    "answer": "Constante de Boltzmann"
+    "answer": 3
   },
   {
     "question": "Como podemos diminuir a potência de ruído de um sistema de receção?",
@@ -137,7 +137,7 @@
       "Filtrando para diminuir a banda sem degradar o sinal",
       "Nenhuma das anteriores"
     ],
-    "answer": "Filtrando para diminuir a banda sem degradar o sinal"
+    "answer": 2
   },
   {
     "question": "O ruído térmico é um sinal de que natureza?",
@@ -147,7 +147,7 @@
       "Quadrático",
       "Aleatório"
     ],
-    "answer": "Aleatório"
+    "answer": 3
   },
   {
     "question": "O que significa FSK?",
@@ -157,7 +157,7 @@
       "Frequency Shunt Kelvin",
       "Forward Shift Keying"
     ],
-    "answer": "Frequency Shift Keying"
+    "answer": 0
   },
   {
     "question": "Ao transmitir um sinal de dados, por que razão é importante conhecer o duty cycle?",
@@ -167,7 +167,7 @@
       "Para permitir tempo de chamada de outras estações",
       "Todas as opções anteriores"
     ],
-    "answer": "Para evitar danos no estágio final"
+    "answer": 1
   },
   {
     "question": "Que tipo de informação pode ser transmitida por formas de onda digitais?",
@@ -177,7 +177,7 @@
       "Dados",
       "Todas as opções anteriores"
     ],
-    "answer": "Todas as opções anteriores"
+    "answer": 3
   },
   {
     "question": "O bit rate pode ser definido como:",
@@ -187,7 +187,7 @@
       "Número de inversões de fase",
       "Quantidade de informação por bit"
     ],
-    "answer": "Número de bits por segundo"
+    "answer": 0
   },
   {
     "question": "Em PPM (Pulse-Position Modulation), qual parâmetro varia?",
@@ -197,7 +197,7 @@
       "Duração dos pulsos",
       "Momento de cada pulso"
     ],
-    "answer": "Momento de cada pulso"
+    "answer": 3
   },
   {
     "question": "A que estão associadas as siglas CRC e FEC?",
@@ -207,7 +207,7 @@
       "Sistemas de amplificação de RF",
       "Sistemas de adaptação de impedâncias"
     ],
-    "answer": "Sistemas de deteção de erros"
+    "answer": 1
   },
   {
     "question": "Numa comunicação o bit rate é 9600 baud e o baud rate é 4800. Qual o número de bits por símbolo?",
@@ -217,7 +217,7 @@
       "8",
       "16"
     ],
-    "answer": "2"
+    "answer": 0
   },
   {
     "question": "Duma forma geral, quanto maior o bit rate, a largura de banda necessária:",
@@ -227,7 +227,7 @@
       "Não depende",
       "Depende só da potência refletida"
     ],
-    "answer": "Aumenta"
+    "answer": 1
   },
   {
     "question": "A ADC (Conversão Analógica/Digital) divide-se em três etapas: amostragem, quantificação e:",
@@ -237,7 +237,7 @@
       "Codificação",
       "Filtragem"
     ],
-    "answer": "Codificação"
+    "answer": 2
   },
   {
     "question": "O teorema de Nyquist estabelece que a frequência de amostragem deve ser no mínimo:",
@@ -247,7 +247,7 @@
       "Quatro vezes a maior frequência",
       "Dez vezes a maior frequência"
     ],
-    "answer": "O dobro da maior frequência do sinal"
+    "answer": 1
   },
   {
     "question": "O aliasing na ADC consiste em:",
@@ -257,7 +257,7 @@
       "Distorção não linear dos amplificadores",
       "Distorção por violação do teorema de Nyquist"
     ],
-    "answer": "Distorção por violação do teorema de Nyquist"
+    "answer": 3
   },
   {
     "question": "A convolução de dois pulsos retangulares resulta em:",
@@ -267,7 +267,7 @@
       "Um pulso de amplitude infinita",
       "Um pulso de amplitude nula"
     ],
-    "answer": "Um pulso triangular"
+    "answer": 1
   },
   {
     "question": "Como reage um condensador a uma corrente alternada?",
@@ -277,7 +277,7 @@
       "Reactância aumenta com amplitude",
       "Reactância diminui com amplitude"
     ],
-    "answer": "Reactância diminui com frequência"
+    "answer": 0
   },
   {
     "question": "Num condensador plano, a capacidade aumenta quando:",
@@ -287,7 +287,7 @@
       "Aumenta a constante dielétrica",
       "Todas as anteriores"
     ],
-    "answer": "Todas as anteriores"
+    "answer": 3
   },
   {
     "question": "A reactância de um condensador é tanto maior quanto:",
@@ -297,7 +297,7 @@
       "Menor a sua indutância",
       "Maior a sua indutância"
     ],
-    "answer": "Menor a sua capacidade"
+    "answer": 0
   },
   {
     "question": "Em que consiste a reactância de uma bobina?",
@@ -307,6 +307,6 @@
       "Propriedade de resistências ideais",
       "Faísca nos contactos ao desligar"
     ],
-    "answer": "Oposição à corrente alternada pela indutância"
+    "answer": 1
   }
 ]
