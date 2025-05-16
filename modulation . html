@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <title>Visualizador de Modulação Digital</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: #ffffff;
+      text-align: center;
+      padding: 20px;
+    }
+    canvas {
+      background: #ffffff;
+      border: 1px solid #555;
+      margin: 10px auto;
+      display: block;
+    }
+    button {
+      margin: 5px;
+      padding: 10px 16px;
+      font-size: 14px;
+      border: none;
+      border-radius: 5px;
+      background: #444;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #666;
+    }
+    .description {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 10px;
+      text-align: left;
+    }
+    a {
+      color: #00e0ff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .section {
+      margin: 30px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Modulação Digital: Visualização Interativa</h1>
+
+  <div class="description section">
+    <h2>O que é modulação digital?</h2>
+    <p>
+      A <strong>modulação digital</strong> (ou modelação digital) é o processo de converter dados digitais (sequência de 0s e 1s)
+      em sinais analógicos para transmissão via rádio, fibra ou cabo. Isso permite que os dados sejam enviados por canais
+      físicos que normalmente transportam sinais analógicos, como ondas eletromagnéticas.
+    </p>
+    <p>As formas principais de modulação digital manipulam:</p>
+    <ul>
+      <li><strong>Amplitude</strong> (ASK)</li>
+      <li><strong>Frequência</strong> (FSK)</li>
+      <li><strong>Fase</strong> (PSK, QPSK)</li>
+      <li><strong>Amplitude + Fase</strong> (QAM)</li>
+    </ul>
+    <p>Exemplo de sinal binário original:</p>
+    <canvas id="binarySignal" width="900" height="100"></canvas>
+  </div>
+
+  <div class="description section" id="desc"></div>
+
+  <canvas id="waveform" width="900" height="200"></canvas>
+  <div>
+    <button onclick="draw('ASK')">ASK</button>
+    <button onclick="draw('FSK')">FSK</button>
+    <button onclick="draw('BPSK')">BPSK</button>
+    <button onclick="draw('DPSK')">DPSK</button>
+    <button onclick="draw('QPSK')">QPSK</button>
+    <button onclick="draw('QAM')">QAM</button>
+  </div>
+
+  <script>
+    const binaryCanvas = document.getElementById('binarySignal');
+    const binaryCtx = binaryCanvas.getContext('2d');
+
+    const modCanvas = document.getElementById('waveform');
+    const modCtx = modCanvas.getContext('2d');
+    const desc = document.getElementById('desc');
+
+    const bits = [1, 0, 1, 1, 0, 0, 1, 0];
+
+    function drawBinarySignal() {
+      const w = binaryCanvas.width;
+      const h = binaryCanvas.height;
+      binaryCtx.clearRect(0, 0, w, h);
+      binaryCtx.strokeStyle = '#000';
+      binaryCtx.lineWidth = 2;
+      binaryCtx.beginPath();
+      const step = w / bits.length;
+      binaryCtx.moveTo(0, bits[0] ? 20 : 80);
+      for (let i = 0; i < bits.length; i++) {
+        const y = bits[i] ? 20 : 80;
+        binaryCtx.lineTo(i * step, y);
+        binaryCtx.lineTo((i + 1) * step, y);
+      }
+      binaryCtx.stroke();
+    }
+
+    function drawWaveform(yFunc, label) {
+      modCtx.clearRect(0, 0, modCanvas.width, modCanvas.height);
+      modCtx.strokeStyle = '#000';
+      modCtx.lineWidth = 2;
+      modCtx.beginPath();
+      for (let i = 0; i < modCanvas.width; i++) {
+        const t = i / modCanvas.width * bits.length;
+        const y = yFunc(t);
+        modCtx.lineTo(i, 100 - y * 80);
+      }
+      modCtx.stroke();
+      modCtx.fillStyle = '#000';
+      modCtx.fillText(label, 10, 20);
+    }
+
+    function draw(type) {
+      const freq = 5;
+      const pi = Math.PI;
+
+      switch (type) {
+        case 'ASK':
+          drawWaveform(t => bits[Math.floor(t)] ? Math.sin(2 * pi * freq * t) : 0, 'ASK');
+          desc.innerHTML = `
+            <h2>ASK - Amplitude Shift Keying</h2>
+            <p><b>Descrição:</b> Varia a amplitude para representar bits. '1' = onda com amplitude, '0' = sem sinal.</p>
+            <p><a href="https://en.wikipedia.org/wiki/Amplitude-shift_keying" target="_blank">Wikipedia: ASK</a></p>`;
+          break;
+
+        case 'FSK':
+          drawWaveform(t => {
+            const f = bits[Math.floor(t)] ? freq : freq / 2;
+            return Math.sin(2 * pi * f * t);
+          }, 'FSK');
+          desc.innerHTML = `
+            <h2>FSK - Frequency Shift Keying</h2>
+            <p><b>Descrição:</b> Frequência diferente para cada bit. '1' = frequência alta, '0' = baixa.</p>
+            <p><a href="https://en.wikipedia.org/wiki/Frequency-shift_keying" target="_blank">Wikipedia: FSK</a></p>`;
+          break;
+
+        case 'BPSK':
+          drawWaveform(t => {
+            const bit = bits[Math.floor(t)];
+            return Math.sin(2 * pi * freq * t + (bit ? 0 : pi));
+          }, 'BPSK');
+          desc.innerHTML = `
+            <h2>BPSK - Binary Phase Shift Keying</h2>
+            <p><b>Descrição:</b> 180° de mudança de fase para '0', sem mudança para '1'.</p>
+            <p><a href="https://en.wikipedia.org/wiki/Phase-shift_keying#Binary_phase-shift_keying_(BPSK)" target="_blank">Wikipedia: BPSK</a></p>`;
+          break;
+
+        case 'DPSK':
+          let lastPhase = 0;
+          drawWaveform(t => {
+            const i = Math.floor(t);
+            if (i >= bits.length) return 0;
+            if (i === 0) lastPhase = 0;
+            else if (bits[i] !== bits[i - 1]) lastPhase += pi;
+            return Math.sin(2 * pi * freq * t + lastPhase);
+          }, 'DPSK');
+          desc.innerHTML = `
+            <h2>DPSK - Differential PSK</h2>
+            <p><b>Descrição:</b> A fase muda apenas quando o bit muda. Baseia-se na diferença entre símbolos.</p>
+            <p><a href="https://en.wikipedia.org/wiki/Differential_phase-shift_keying" target="_blank">Wikipedia: DPSK</a></p>`;
+          break;
+
+        case 'QPSK':
+          drawWaveform(t => {
+            const symbolIndex = Math.floor(t / 2);
+            const bitPair = [bits[symbolIndex * 2], bits[symbolIndex * 2 + 1]];
+            const phaseMap = {
+              "11": 0,
+              "10": pi / 2,
+              "00": pi,
+              "01": 3 * pi / 2
+            };
+            const key = `${bitPair[0] ?? 0}${bitPair[1] ?? 0}`;
+            const phase = phaseMap[key] || 0;
+            return Math.sin(2 * pi * freq * t + phase);
+          }, 'QPSK');
+          desc.innerHTML = `
+            <h2>QPSK - Quadrature PSK</h2>
+            <p><b>Descrição:</b> Codifica pares de bits com 4 fases: 0°, 90°, 180°, 270°.</p>
+            <p><a href="https://en.wikipedia.org/wiki/Quadrature_phase-shift_keying" target="_blank">Wikipedia: QPSK</a></p>`;
+          break;
+
+        case 'QAM':
+          drawWaveform(t => {
+            const symbolIndex = Math.floor(t / 2);
+            const bit1 = bits[symbolIndex * 2] ?? 0;
+            const bit2 = bits[symbolIndex * 2 + 1] ?? 0;
+            const amplitude = bit1 ? 1 : 0.5;
+            const phase = bit2 ? 0 : pi;
+            return amplitude * Math.sin(2 * pi * freq * t + phase);
+          }, 'QAM');
+          desc.innerHTML = `
+            <h2>QAM - Quadrature Amplitude Modulation</h2>
+            <p><b>Descrição:</b> Combina amplitude e fase. Exemplo: 16-QAM = 4 bits por símbolo (alta eficiência).</p>
+            <p><a href="https://en.wikipedia.org/wiki/Quadrature_amplitude_modulation" target="_blank">Wikipedia: QAM</a></p>`;
+          break;
+      }
+    }
+
+    drawBinarySignal(); // Mostra sinal original
+    draw('ASK'); // Mostra primeiro tipo de modulação
+  </script>
+</body>
+</html>
